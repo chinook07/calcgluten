@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
+import Tableau from "./comp/Tableau";
+
 const Resume = () => {
     return (
-        <Wrapper>Résumé</Wrapper>
+        <>
+            <h2>Tableau résumé</h2>
+            <p>Voici un texte.</p>
+            <Tableau />
+        </>
     )
 }
-
-const Wrapper = styled.div``
 
 export default Resume;

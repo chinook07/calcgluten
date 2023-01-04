@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 const Pied = () => {
     return (
-        <Wrapper>pied</Wrapper>
+        <Wrapper>Pied qui pue</Wrapper>
     )
 }
 
-const Wrapper = styled.footer``
+const Wrapper = styled.footer`
+    
+`
 
 export default Pied;
