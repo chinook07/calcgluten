@@ -32,6 +32,14 @@ const Recu = ({ setEtape }) => {
                 </div>
                 <BoutonAjout onClick={plusUn}>Ajouter item</BoutonAjout>
                 {
+                    numItems > 0 &&
+                    <Legende aria-hidden>
+                            <p>Quantité</p>
+                            <p>Item</p>
+                            <p>Prix par unité</p>
+                    </Legende>
+                }
+                {
                     Array.from(Array(numItems).keys()).map((item, index) => {
                         return <Item key={index} />
                     })
@@ -65,6 +73,11 @@ const Wrapper = styled.form`
 const BoutonAjout = styled.button`
     margin: 0 auto;
     width: 100px;
+`
+
+const Legende = styled.div`
+    display: flex;
+    justify-content: space-evenly;
 `
 
 const BoutonEnv = styled.button`
