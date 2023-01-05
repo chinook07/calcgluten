@@ -6,10 +6,19 @@ import Item from "./Item";
 const Recu = ({ setEtape }) => {
 
     const [numItems, setNumItems] = useState(0);
+    const [magasin, setMagasin] = useState("");
+    const [tousItems, setTousItems] = useState([]);
+    const [dateRecu, setDateRecu] = useState("");
 
-    const rienFaire = (e) => {
+    const majMagasin = (e) => setMagasin(e.target.value);
+    const majDate = (e) => setDateRecu(e.target.value);
+    const majItems = (e) => {
+        console.log(e.target.attributes[0]);
+        console.log(e.target.attributes[2]);
+    }
+
+    const ajoutRecu = (e) => {
         e.preventDefault()
-        setEtape(2);
     }
 
     const plusUn = (e) => {
@@ -24,11 +33,15 @@ const Recu = ({ setEtape }) => {
     }
 
     return (
-        <Wrapper onSubmit={rienFaire}>
+        <Wrapper onSubmit={ajoutRecu}>
             <fieldset>
                 <div>
                     <label>Magasin</label>
-                    <input type="text" onKeyUp={entreeMagasin} />
+                    <input
+                        type="text"
+                        onChange={majMagasin}
+                        onKeyUp={entreeMagasin}
+                    />
                 </div>
                 <BoutonAjout onClick={plusUn}>Ajouter item</BoutonAjout>
                 {
@@ -41,7 +54,13 @@ const Recu = ({ setEtape }) => {
                 }
                 {
                     Array.from(Array(numItems).keys()).map((item, index) => {
-                        return <Item key={index} />
+                        return (
+                            <Item
+                                key={index}
+                                majItems={majItems}
+                                ordre={index}
+                            />
+                        )
                     })
                 }
                 {
@@ -50,7 +69,10 @@ const Recu = ({ setEtape }) => {
                 }
                 <div>
                     <label>Date de l'achat</label>
-                    <input type="date" />
+                    <input
+                        onChange={majDate}
+                        type="date"
+                    />
                 </div>
                 {
                     numItems > 0 &&

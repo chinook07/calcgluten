@@ -1,26 +1,45 @@
 import styled from "styled-components";
 
-const Item = () => {
+const Item = ({ majItems, ordre }) => {
 
     // const ajouterDollar = (e) => {
     //     console.log(e.target.value);
     //     e.target.value = `${e.target.value} $`
     // }
 
+    const ajQte = (e) => {
+        console.log(e.target.value);
+    }
+
     return (
         <Wrapper>
             <div>
                 <label>Quantité</label>
-                <input type="number" />
+                <input
+                    onChange={majItems}
+                    ordre={ordre}
+                    propriete="qte"
+                    type="number"
+                />
             </div>
             <div>
                 <label>Item</label>
-                <input type="text" />
+                <input
+                    onChange={majItems}
+                    ordre={ordre}
+                    propriete="item"
+                    type="text"
+                />
             </div>
             <div>
                 <label>Prix par unité</label>
                 <div>
-                    <input type="number" />
+                    <input
+                        onChange={majItems}
+                        ordre={ordre}
+                        propriete="prix"
+                        type="number"
+                    />
                     <span> $</span>
                 </div>
                 
