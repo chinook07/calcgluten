@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Item from "./Item";
 
@@ -10,20 +10,64 @@ const Recu = ({ setEtape }) => {
     const [tousItems, setTousItems] = useState([]);
     const [dateRecu, setDateRecu] = useState("");
 
+    useEffect(() => {
+        console.log(tousItems);
+    }, [tousItems])
+
     const majMagasin = (e) => setMagasin(e.target.value);
     const majDate = (e) => setDateRecu(e.target.value);
     const majItems = (e) => {
-        console.log(e.target.attributes[0]);
-        console.log(e.target.attributes[2]);
+        
+        let rang = e.target.attributes.ordre.value;
+        let propriete = e.target.attributes.propriete.value;
+        let valeurEntree = e.target.value;
+        console.log("rang :", rang, ", propriete :", propriete, ", valeurEntree :", valeurEntree);
+        if (propriete === "qte") {
+            let varItems = tousItems;
+            varItems[rang].qte = valeurEntree;
+            console.log(varItems[rang].qte);
+            setTousItems(varItems);
+        }
+        if (propriete === "item") {
+            let varItems = tousItems;
+            varItems[rang].item = valeurEntree;
+            setTousItems(varItems);
+        }
+        if (propriete === "prix") {
+            let varItems = tousItems;
+            varItems[rang].prix = valeurEntree;
+            setTousItems(varItems);
+        }
     }
 
     const ajoutRecu = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        fetch("/api/ajout-recu", {
+            method: "POST",
+            body: JSON.stringify({
+                id: tousItems.length,
+                magasin: magasin,
+                date: dateRecu,
+                items: tousItems
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+        })
     }
 
     const plusUn = (e) => {
         e.preventDefault();
         setNumItems(numItems + 1);
+        let varTousItems = tousItems;
+        varTousItems[numItems] = {
+            "qte": null,
+            "item": null,
+            "prix": null
+        }
+        setTousItems(varTousItems)
+        console.log("fonctionne");
     }
 
     const entreeMagasin = (e) => {

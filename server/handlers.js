@@ -21,11 +21,11 @@ const closeSesame = async () => {
 }
 
 const ajoutRecu = async (req, res) => {
-    // const { type, properties, geometry, contributeur } = req.body;
+    const { id, magasin, date, items } = req.body;
     await openSesame();
     // const items = await db.collection("nicola").find().toArray();
     // const nombre = sites.length + 1001;
-    await db.collection("recus").insertOne({ _id: 001, type: "type exemple" });
+    await db.collection("recus").insertOne({ id, magasin, date, items });
     // await db.collection("contributeurs").insertOne({ _id: nombre, contributeur })
     await closeSesame();
     return res.status(201).json({ status: 201, message: `nouveau reçu` })
@@ -34,11 +34,11 @@ const ajoutRecu = async (req, res) => {
 const toutesDonnees = async (req, res) => {
     // console.log(res);
     console.log("handlers");
-    // await openSesame();
-    // const items = await db.collection("nicola").find().toArray();
-    // console.log(items);
-    // await closeSesame();
-    return res.status(200).json({ status: 200, message: "Voici vos données2." })
+    await openSesame();
+    const items = await db.collection("recus").find().toArray();
+    console.log(items);
+    await closeSesame();
+    return res.status(200).json({ status: 200, items, message: "Voici vos données2." })
 }
 
 module.exports = {

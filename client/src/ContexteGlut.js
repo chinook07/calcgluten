@@ -5,15 +5,13 @@ export const ContexteGlut = createContext();
 const ContexteGlutProvider = ({ children }) => {
 
     const [prete, setPrete] = useState(false);
+    const [tousRecus, setTousRecus] = useState([]);
 
     useEffect(() => {
         fetch("/api/toutes-donnees")
-            .then((res) => {
-                console.log(res);
-                return res.json()
-            })
+            .then(res => res.json())
             .then((donnees) => {
-                console.log(donnees);
+                setTousRecus(donnees.items);
                 setPrete(true);
                 return donnees;
             })
@@ -22,7 +20,8 @@ const ContexteGlutProvider = ({ children }) => {
     return (
         <ContexteGlut.Provider
             value={{
-                prete
+                prete,
+                tousRecus
             }}
         >{children}</ContexteGlut.Provider>
     )

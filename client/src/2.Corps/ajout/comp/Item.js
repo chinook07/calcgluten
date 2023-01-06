@@ -7,9 +7,6 @@ const Item = ({ majItems, ordre }) => {
     //     e.target.value = `${e.target.value} $`
     // }
 
-    const ajQte = (e) => {
-        console.log(e.target.value);
-    }
 
     return (
         <Wrapper>
