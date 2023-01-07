@@ -1,31 +1,28 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 
+import { ContexteGlut } from "../../../ContexteGlut";
 import Item from "./Item";
 
 const Recu = ({ setEtape }) => {
+
+    const { tousRecus, f5, setF5 } = useContext(ContexteGlut);
 
     const [numItems, setNumItems] = useState(0);
     const [magasin, setMagasin] = useState("");
     const [tousItems, setTousItems] = useState([]);
     const [dateRecu, setDateRecu] = useState("");
-
-    useEffect(() => {
-        console.log(tousItems);
-    }, [tousItems])
+    const [erreur, setErreur] = useState(false);
 
     const majMagasin = (e) => setMagasin(e.target.value);
     const majDate = (e) => setDateRecu(e.target.value);
     const majItems = (e) => {
-        
         let rang = e.target.attributes.ordre.value;
         let propriete = e.target.attributes.propriete.value;
         let valeurEntree = e.target.value;
-        console.log("rang :", rang, ", propriete :", propriete, ", valeurEntree :", valeurEntree);
         if (propriete === "qte") {
             let varItems = tousItems;
             varItems[rang].qte = valeurEntree;
-            console.log(varItems[rang].qte);
             setTousItems(varItems);
         }
         if (propriete === "item") {
@@ -42,19 +39,27 @@ const Recu = ({ setEtape }) => {
 
     const ajoutRecu = (e) => {
         e.preventDefault();
-        fetch("/api/ajout-recu", {
-            method: "POST",
-            body: JSON.stringify({
-                id: tousItems.length,
-                magasin: magasin,
-                date: dateRecu,
-                items: tousItems
-            }),
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-        })
+        if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
+            // let identifiant = (tousRecus.length + 1001).toString();
+            // console.log(identifiant);
+            fetch("/api/ajout-recu", {
+                method: "POST",
+                body: JSON.stringify({
+                    // _id: identifiant,
+                    magasin: magasin,
+                    date: dateRecu,
+                    items: tousItems
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+            })
+            setEtape(2);
+            setF5(f5 + 1);
+        } else {
+            setErreur(true);
+        }
     }
 
     const plusUn = (e) => {
@@ -67,7 +72,6 @@ const Recu = ({ setEtape }) => {
             "prix": null
         }
         setTousItems(varTousItems)
-        console.log("fonctionne");
     }
 
     const entreeMagasin = (e) => {
@@ -121,6 +125,10 @@ const Recu = ({ setEtape }) => {
                 {
                     numItems > 0 &&
                     <BoutonEnv type="submit">Sauvegarder</BoutonEnv>
+                }
+                {
+                    erreur &&
+                    <div>Erreur!</div>
                 }
             </fieldset>
         </Wrapper>

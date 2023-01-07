@@ -35,6 +35,7 @@ const Item = ({ majItems, ordre }) => {
                         onChange={majItems}
                         ordre={ordre}
                         propriete="prix"
+                        step="0.01"
                         type="number"
                     />
                     <span> $</span>

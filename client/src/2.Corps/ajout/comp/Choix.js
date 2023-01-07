@@ -2,10 +2,7 @@ import styled from "styled-components";
 
 const Choix = ({ setEtape }) => {
 
-    const choisirNouveau = () => {
-        setEtape(1);
-        console.log("nouveau");
-    }
+    const choisirNouveau = () => setEtape(1);
 
     const choisirExistant = () => {
         setEtape(1);

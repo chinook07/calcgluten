@@ -7,6 +7,7 @@ const Entete = () => {
             <h1>CalcGluten</h1>
             <nav>
                 <NavLink to="/">Accueil</NavLink>
+                <NavLink to="/comparatif">Comparatif</NavLink>
                 <NavLink to="/ajout">Ajout</NavLink>
                 <NavLink to="/resume">Résumé</NavLink>
             </nav>

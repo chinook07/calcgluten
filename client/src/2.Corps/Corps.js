@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Accueil from "./accueil/Accueil";
+import Comparatif from "./comparatif/Comparatif";
 import Ajout from "./ajout/Ajout";
 import Resume from "./resume/Resume";
 import { ContexteGlut } from "../ContexteGlut";
@@ -15,11 +16,12 @@ const Corps = () => {
         <Wrapper>
             {
                 prete &&
-                <Routes>
-                    <Route path="/" element={< Accueil />} />
-                    <Route path="/ajout" element={< Ajout />} />
-                    <Route path="/resume" element={< Resume />} />
-                    <Route path="*" element={< div>Erreur</div>} />
+                    <Routes>
+                        <Route path="/" element={< Accueil />} />
+                        <Route path="/comparatif" element={< Comparatif />} />
+                        <Route path="/ajout" element={< Ajout />} />
+                        <Route path="/resume" element={< Resume />} />
+                        <Route path="*" element={< div>Erreur</div>} />
                 </Routes>
             }
             

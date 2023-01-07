@@ -21,24 +21,21 @@ const closeSesame = async () => {
 }
 
 const ajoutRecu = async (req, res) => {
-    const { id, magasin, date, items } = req.body;
+    const { magasin, date, items } = req.body;
     await openSesame();
-    // const items = await db.collection("nicola").find().toArray();
-    // const nombre = sites.length + 1001;
-    await db.collection("recus").insertOne({ id, magasin, date, items });
-    // await db.collection("contributeurs").insertOne({ _id: nombre, contributeur })
+    await db.collection("recus").insertOne({ magasin, date, items });
     await closeSesame();
-    return res.status(201).json({ status: 201, message: `nouveau reçu` })
+    return res.status(201).json({ status: 201, message: `nouveau reçu de ${items.length} items ajoutés` })
 }
 
 const toutesDonnees = async (req, res) => {
-    // console.log(res);
-    console.log("handlers");
     await openSesame();
     const items = await db.collection("recus").find().toArray();
-    console.log(items);
+    const bases = await db.collection("basecomp").find().toArray();
+    const catalogue = bases[0].catalogue;
+    console.log(catalogue);
     await closeSesame();
-    return res.status(200).json({ status: 200, items, message: "Voici vos données2." })
+    return res.status(200).json({ status: 200, items, catalogue, message: "Voici vos reçus." })
 }
 
 module.exports = {
