@@ -6,7 +6,7 @@ import Item from "./Item";
 
 const Recu = ({ setEtape }) => {
 
-    const { tousRecus, f5, setF5 } = useContext(ContexteGlut);
+    const { f5, setF5 } = useContext(ContexteGlut);
 
     const [numItems, setNumItems] = useState(0);
     const [magasin, setMagasin] = useState("");
@@ -40,12 +40,9 @@ const Recu = ({ setEtape }) => {
     const ajoutRecu = (e) => {
         e.preventDefault();
         if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
-            // let identifiant = (tousRecus.length + 1001).toString();
-            // console.log(identifiant);
             fetch("/api/ajout-recu", {
                 method: "POST",
                 body: JSON.stringify({
-                    // _id: identifiant,
                     magasin: magasin,
                     date: dateRecu,
                     items: tousItems

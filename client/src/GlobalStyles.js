@@ -12,7 +12,7 @@ export default createGlobalStyle`
         background-color: var(--c1);
         font-family: "Trebuchet MS", Helvetica, sans-serif;
         margin: 0;
-        padding: 10px;
+        padding: 0;
     }
     figcaption {
         font-size: small;
