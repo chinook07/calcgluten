@@ -23,18 +23,7 @@ const closeSesame = async () => {
 const toutesDonnees = async (req, res) => {
     await openSesame();
     const items = await db.collection("recus").find().toArray();
-    const bases = await db.collection("basecomp").find().toArray();
-    let catalogue = [
-        [], []
-    ];
-    const cles = Object.keys(bases[0]);
-    const valeurs = Object.values(bases[0])
-    cles.forEach((aliment, index) => {
-        if (aliment != "_id") {
-            catalogue[0].push(aliment)
-            catalogue[1].push(valeurs[index])
-        }
-    })
+    const catalogue = await db.collection("basecomp").find().toArray();
     await closeSesame();
     return res.status(200).json({ status: 200, items, catalogue, message: "Voici vos reçus." })
 }
@@ -44,7 +33,19 @@ const ajoutRecu = async (req, res) => {
     await openSesame();
     await db.collection("recus").insertOne({ magasin, date, items });
     await closeSesame();
-    return res.status(201).json({ status: 201, message: `nouveau reçu de ${items.length} items ajoutés` })
+    return res.status(201).json({ status: 201, message: `nouveau reçu ajouté` })
+}
+
+const nouvMoyenne = async (req, res) => {
+    const { alimentEntre, prixEntre } = req.body;
+    await openSesame();
+    await db.collection("basecomp").insertOne({
+        aliment: alimentEntre,
+        prix: parseFloat(prixEntre),
+        achete: 0
+    })
+    await closeSesame();
+    return res.status(200).json({ status: 200, message: "Aliment ajouté" })
 }
 
 const modifMoyenne = async (req, res) => {
@@ -55,18 +56,11 @@ const modifMoyenne = async (req, res) => {
     return res.status(200).json({ status: 200, message: "Moyenne mis à jour" })
 }
 
-const nouvMoyenne = async (req, res) => {
-    const { alimentEntre, prixEntre } = req.body;
-    await openSesame();
-    await db.collection("basecomp").updateOne({}, { $set: { [alimentEntre]: parseFloat(prixEntre) } })
-    await closeSesame();
-    return res.status(200).json({ status: 200, message: "Aliment ajouté" })
-}
-
 const supprimerMoyenne = async (req, res) => {
     const { aliment } = req.body;
+    console.log(aliment);
     await openSesame();
-    await db.collection("basecomp").updateOne({}, { $unset: { [aliment]: "" } })
+    await db.collection("basecomp").deleteOne({ aliment: aliment })
     await closeSesame();
     return res.status(200).json({ status: 200, message: "Aliment supprimé" })
 }
@@ -74,7 +68,7 @@ const supprimerMoyenne = async (req, res) => {
 module.exports = {
     ajoutRecu,
     toutesDonnees,
-    modifMoyenne,
     nouvMoyenne,
+    modifMoyenne,
     supprimerMoyenne
 }

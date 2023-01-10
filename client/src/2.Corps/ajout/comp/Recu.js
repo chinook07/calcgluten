@@ -52,8 +52,8 @@ const Recu = ({ setEtape }) => {
                     "Accept": "application/json"
                 },
             })
-            setEtape(2);
-            setF5(f5 + 1);
+                .then(() => setF5(f5 + 1))
+                .then(() => setEtape(2))
         } else {
             setErreur(true);
         }

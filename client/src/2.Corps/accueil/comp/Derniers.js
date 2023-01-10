@@ -10,9 +10,10 @@ const Derniers = () => {
     const { tousRecus } = useContext(ContexteGlut);
 
     const [details, setDetails] = useState();
-
-    console.log(tousRecus);
     
+    const modifierRecu = (recu) => {
+        console.log("modifier", recu);
+    }
     const basculerDetails = (num) => details === num ? setDetails() : setDetails(num);
 
     return (
@@ -29,8 +30,8 @@ const Derniers = () => {
                             <Resume>
                                 <p>Il y a {combienDeTemps}</p>
                                 <p>{item.magasin}</p>
-                                <p>{sommeRecu}</p>
-                                <button>Modifier</button>
+                                <p>{sommeRecu} $</p>
+                                <button onClick={() => modifierRecu(index)}>Modifier</button>
                                 <button onClick={() => basculerDetails(index)}>Détails</button>
                             </Resume>
                             {
@@ -61,8 +62,6 @@ const Derniers = () => {
 const Wrapper = styled.div``
 
 const FacRecente = styled.div`
-    
-    
     p {
         color: var(--c11);
     }
@@ -75,8 +74,17 @@ const FacRecente = styled.div`
 `
 
 const Resume = styled.div`
-    display: flex;
+    align-items: center;
+    display: grid;
     gap: 10px;
+    grid-template-columns: auto auto 50px 90px 90px;
+    padding: 5px;
+    p {
+        margin: 10px 0;
+    }
+    button {
+        height: 25px;
+    }
 `
 
 const Details = styled.div``

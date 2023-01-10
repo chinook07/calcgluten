@@ -4,8 +4,8 @@ const morgan = require("morgan");
 const {
     ajoutRecu,
     toutesDonnees,
-    modifMoyenne,
     nouvMoyenne,
+    modifMoyenne,
     supprimerMoyenne
 } = require("./handlers")
 
@@ -17,9 +17,9 @@ express()
     .post("/api/ajout-recu", ajoutRecu)
     // .put("/api/modif-recu", modifRecu)
     // .delete ("/api/supprimer-recu", supprimerRecu)
+    .post("/api/nouvelle-moyenne", nouvMoyenne)
     .put("/api/modifier-moyenne", modifMoyenne)
-    .put("/api/nouvelle-moyenne", nouvMoyenne)
-    .put("/api/supprimer-moyenne", supprimerMoyenne)
+    .delete("/api/supprimer-moyenne", supprimerMoyenne)
     .get("*", (req, res) => {
         res.status(404).json({
             status: 404,

@@ -26,7 +26,9 @@ const ContexteGlutProvider = ({ children }) => {
             value={{
                 prete,
                 tousRecus,
+                setTousRecus,
                 baseComp,
+                setBaseComp,
                 f5,
                 setF5
             }}

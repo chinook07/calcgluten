@@ -16,9 +16,10 @@ const Entete = () => {
 }
 
 const Wrapper = styled.header`
+    align-items: center;
     background-color: var(--c0);
     display: flex;
-    height: 100px;
+    /* height: 100px; */
     justify-content: space-between;
     padding: 15px;
     h1 {
@@ -27,18 +28,20 @@ const Wrapper = styled.header`
     nav {
         display: flex;
         gap: 10px;
-        
         a {
             border: 1px solid black;
             border-radius: 10px;
             color: var(--c11);
-            height: 50px;
+            height: 40px;
             padding: 10px;
             text-decoration: none;
             &.active {
                 background-color: var(--c10);
             }
         }
+    }
+    @media screen and (max-width: 580px) {
+        flex-direction: column;
     }
 `
 

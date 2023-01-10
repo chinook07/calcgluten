@@ -12,11 +12,10 @@ const Comparatif = () => {
     const [modifierMoy, setModifierMoy] = useState("");
     const [ajoutArticle, setAjoutArticle] = useState(false);
 
-    const toutesCles = baseComp[0];
+    let catalogue = [];
 
-    let toutesValeurs = [];
-    baseComp[1].forEach(num => {
-        let nombreArrondi = num.toLocaleString("fr-CA");
+    baseComp.forEach(article => {
+        let nombreArrondi = article.prix.toLocaleString("fr-CA");
         let virgule = nombreArrondi.indexOf(",");
         if (virgule === -1) {
             nombreArrondi = nombreArrondi.concat(",00");
@@ -26,15 +25,16 @@ const Comparatif = () => {
                 nombreArrondi = nombreArrondi.concat("0");
             }
         }
-        toutesValeurs.push(nombreArrondi)
-    });
+        article.prix = nombreArrondi;
+        catalogue.push(article);
+    })
 
     const modifierMoyenne = (aliment) => setModifierMoy(aliment);
 
     const supprimerMoyenne = (aliment) => {
         console.log("on va supprimer", aliment);
         fetch(`/api/supprimer-moyenne`, {
-            method: "PUT",
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
@@ -51,13 +51,14 @@ const Comparatif = () => {
         <Wrapper>
             <ul>
                 {
-                    toutesCles.map((item, index) => {
+                    catalogue.map((item, index) => {
                         return (
                             <li key={index}>
-                                <p>{item}</p>
-                                <p>{toutesValeurs[index]}</p>
-                                <button onClick={() => modifierMoyenne(item)}>Modifier moyenne</button>
-                                <button onClick={() => supprimerMoyenne(item)}>Supprimer</button>
+                                <p>{item.aliment}</p>
+                                <p>{item.achete}</p>
+                                <p>{item.prix} $</p>
+                                <button onClick={() => modifierMoyenne(item)}>Modifier</button>
+                                <button onClick={() => supprimerMoyenne(item.aliment)}>Supprimer</button>
                             </li>
                         )
                     })
@@ -78,9 +79,17 @@ const Comparatif = () => {
 
 const Wrapper = styled.div`
     li {
+        align-items: center;
         background-color: var(--c4);
-        display: flex;
+        display: grid;
+        grid-template-columns: 30% 50px 50px 90px 90px;
         justify-content: space-between;
+        p {
+            margin: 10px 0;
+        }
+        button {
+            height: 25px;
+        }
     }
 `
 
