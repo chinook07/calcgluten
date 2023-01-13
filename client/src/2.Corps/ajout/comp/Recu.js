@@ -6,11 +6,13 @@ import Item from "./Item";
 
 const Recu = ({ setEtape }) => {
 
-    const { f5, setF5 } = useContext(ContexteGlut);
+    const { baseComp, f5, setF5 } = useContext(ContexteGlut);
 
     const [numItems, setNumItems] = useState(0);
     const [magasin, setMagasin] = useState("");
     const [tousItems, setTousItems] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
+    const [montrerSugg, setMontrerSugg] = useState();
     const [dateRecu, setDateRecu] = useState("");
     const [erreur, setErreur] = useState(false);
 
@@ -26,6 +28,14 @@ const Recu = ({ setEtape }) => {
             setTousItems(varItems);
         }
         if (propriete === "item") {
+            console.log("changement", valeurEntree, rang);
+            let liste = [];
+            baseComp.forEach(element => {
+                element.aliment.includes(valeurEntree) && liste.push(element.aliment)
+            });
+            setSuggestions(liste)
+            setMontrerSugg(rang)
+            valeurEntree === "" && setSuggestions([]);
             let varItems = tousItems;
             varItems[rang].item = valeurEntree;
             setTousItems(varItems);
@@ -103,7 +113,9 @@ const Recu = ({ setEtape }) => {
                             <Item
                                 key={index}
                                 majItems={majItems}
+                                montrerSugg={montrerSugg}
                                 ordre={index}
+                                suggestions={suggestions}
                             />
                         )
                     })

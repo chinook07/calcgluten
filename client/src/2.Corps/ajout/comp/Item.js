@@ -1,67 +1,97 @@
 import styled from "styled-components";
+import { useState } from "react";
 
-const Item = ({ majItems, ordre }) => {
+const Item = ({ majItems, montrerSugg, ordre, suggestions }) => {
+
+    const [choix, setChoix] = useState("");
 
     // const ajouterDollar = (e) => {
     //     console.log(e.target.value);
     //     e.target.value = `${e.target.value} $`
     // }
-
-
+    const choisirLui = (choixDuChef) => {
+        console.log("choix", choixDuChef);
+        setChoix(choixDuChef);
+    }
     return (
         <Wrapper>
-            <div>
-                <label>Quantité</label>
+            <fieldset>
                 <input
-                    onChange={majItems}
-                    ordre={ordre}
-                    propriete="qte"
-                    type="number"
-                />
-            </div>
-            <div>
-                <label>Item</label>
-                <input
+                    id="nomItem"
                     onChange={majItems}
                     ordre={ordre}
                     propriete="item"
                     type="text"
                 />
-            </div>
-            <div>
-                <label>Prix par unité</label>
-                <div>
-                    <input
-                        onChange={majItems}
-                        ordre={ordre}
-                        propriete="prix"
-                        step="0.01"
-                        type="number"
-                    />
-                    <span> $</span>
-                </div>
-                
-            </div>
+                <ItemChoisi>
+                    {
+                        choix !== "" &&
+                        <span>{choix}</span>
+                    }
+                </ItemChoisi>
+                <input
+                    id="qteItem"
+                    onChange={majItems}
+                    ordre={ordre}
+                    propriete="qte"
+                    type="number"
+                />
+                <input
+                    id="prixItem"
+                    onChange={majItems}
+                    ordre={ordre}
+                    propriete="prix"
+                    step="0.01"
+                    type="number"
+                />
+                <span> $</span>
+            </fieldset>
+            <Suggestions>
+                {
+                    montrerSugg === ordre.toString() &&
+                    suggestions.map((item, index) => {
+                        return (
+                            <li
+                                key={index}
+                                onClick={() => choisirLui(item)}
+                            >{item}</li>
+                        )
+                    })
+                }
+            </Suggestions>
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
-    display: flex;
-    gap: 5px;
-    justify-content: space-evenly;
-    div {
-        label {
-            left: -9999px;
-            position: absolute;
-        }
+    fieldset {
+        display: grid;
+        grid-template-columns: 200px max-content 100px auto 20px;
         input {
             border-radius: 5px;
             padding: 5px;
-            width: 100px;
         }
-        &:nth-child(2) input {
-            width: 250px;
+    }
+`
+
+
+const ItemChoisi = styled.p`
+
+`
+
+const Suggestions = styled.ul`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style-type: none;
+    padding-left: 0;
+    li {
+        background-color: var(--c4);
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 10px;
+        &:hover {
+            background-color: var(--c5);
         }
     }
 `
