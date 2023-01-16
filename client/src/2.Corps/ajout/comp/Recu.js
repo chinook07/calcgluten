@@ -18,55 +18,73 @@ const Recu = ({ setEtape }) => {
 
     const majMagasin = (e) => setMagasin(e.target.value);
     const majDate = (e) => setDateRecu(e.target.value);
-    const majItems = (e) => {
-        let rang = e.target.attributes.ordre.value;
-        let propriete = e.target.attributes.propriete.value;
-        let valeurEntree = e.target.value;
-        if (propriete === "qte") {
+    const majItems = (e, rg) => {
+        if (e._reactName === "onChange") {
+            let rang = e.target.attributes.ordre.value;
+            let propriete = e.target.attributes.propriete.value;
+            let valeurEntree = e.target.value;
+            if (propriete === "qte") {
+                let varItems = tousItems;
+                varItems[rang].qte = valeurEntree;
+                setTousItems(varItems);
+            }
+            if (propriete === "item") {
+                console.log("changement", valeurEntree, rang);
+                let liste = [];
+                baseComp.forEach(element => {
+                    element.aliment.includes(valeurEntree) && liste.push(element.aliment)
+                });
+                setSuggestions(liste)
+                setMontrerSugg(rang)
+                valeurEntree === "" && setSuggestions([]);
+                let varItems = tousItems;
+                varItems[rang].item = valeurEntree;
+                setTousItems(varItems);
+            }
+            if (propriete === "prix") {
+                let varItems = tousItems;
+                varItems[rang].prix = valeurEntree;
+                setTousItems(varItems);
+            }
+        } else {
             let varItems = tousItems;
-            varItems[rang].qte = valeurEntree;
-            setTousItems(varItems);
-        }
-        if (propriete === "item") {
-            console.log("changement", valeurEntree, rang);
-            let liste = [];
-            baseComp.forEach(element => {
-                element.aliment.includes(valeurEntree) && liste.push(element.aliment)
-            });
-            setSuggestions(liste)
-            setMontrerSugg(rang)
-            valeurEntree === "" && setSuggestions([]);
-            let varItems = tousItems;
-            varItems[rang].item = valeurEntree;
-            setTousItems(varItems);
-        }
-        if (propriete === "prix") {
-            let varItems = tousItems;
-            varItems[rang].prix = valeurEntree;
+            varItems[rg].item = e;
             setTousItems(varItems);
         }
     }
 
     const ajoutRecu = (e) => {
         e.preventDefault();
-        if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
-            fetch("/api/ajout-recu", {
-                method: "POST",
-                body: JSON.stringify({
-                    magasin: magasin,
-                    date: dateRecu,
-                    items: tousItems
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-            })
-                .then(() => setF5(f5 + 1))
-                .then(() => setEtape(2))
-        } else {
-            setErreur(true);
-        }
+        tousItems.forEach((item, index) => {
+            console.log(item);
+            if (item.qte === null || item.item === null || item.prix === null) {
+                console.log("erreur avec item", index + 1);
+                setErreur(true)
+            } else {
+                setErreur(false);
+                if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
+                    setErreur(false);
+                    console.log(tousItems);
+                    // fetch("/api/ajout-recu", {
+                    //     method: "POST",
+                    //     body: JSON.stringify({
+                    //         magasin: magasin,
+                    //         date: dateRecu,
+                    //         items: tousItems
+                    //     }),
+                    //     headers: {
+                    //         "Content-Type": "application/json",
+                    //         "Accept": "application/json"
+                    //     },
+                    // })
+                    //     .then(() => setF5(f5 + 1))
+                    //     .then(() => setEtape(2))
+                } else {
+                    setErreur(true);
+                    console.log("magasin ou date manquante, ou pas d'items");
+                }
+            }
+        })
     }
 
     const plusUn = (e) => {
@@ -79,6 +97,15 @@ const Recu = ({ setEtape }) => {
             "prix": null
         }
         setTousItems(varTousItems)
+    }
+
+    const moinsUn = (item) => {
+        console.log(item, tousItems);
+        let copieItems = tousItems;
+        copieItems.pop(item, 1);
+        console.log(item, tousItems);
+        setTousItems(copieItems);
+        setNumItems(numItems - 1)
     }
 
     const entreeMagasin = (e) => {
@@ -113,9 +140,11 @@ const Recu = ({ setEtape }) => {
                             <Item
                                 key={index}
                                 majItems={majItems}
+                                moinsUn={moinsUn}
                                 montrerSugg={montrerSugg}
                                 ordre={index}
                                 suggestions={suggestions}
+                                setSuggestions={setSuggestions}
                             />
                         )
                     })

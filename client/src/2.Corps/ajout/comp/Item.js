@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Item = ({ majItems, montrerSugg, ordre, suggestions }) => {
+import { faPencil, faClose } from "@fortawesome/free-solid-svg-icons";
+
+const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moinsUn }) => {
 
     const [choix, setChoix] = useState("");
 
@@ -10,12 +13,26 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions }) => {
     //     e.target.value = `${e.target.value} $`
     // }
     const choisirLui = (choixDuChef) => {
-        console.log("choix", choixDuChef);
+        console.log(choixDuChef);
+        setSuggestions([])
         setChoix(choixDuChef);
+        majItems(choixDuChef, ordre);
     }
+
+    const modifierItem = () => setChoix("");
+
     return (
         <Wrapper>
-            <fieldset>
+            <input
+                id="qteItem"
+                onChange={majItems}
+                ordre={ordre}
+                propriete="qte"
+                type="number"
+            />
+            
+            <p>×</p>
+            <BoiteSugg>
                 <input
                     id="nomItem"
                     onChange={majItems}
@@ -23,75 +40,99 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions }) => {
                     propriete="item"
                     type="text"
                 />
-                <ItemChoisi>
-                    {
-                        choix !== "" &&
-                        <span>{choix}</span>
-                    }
-                </ItemChoisi>
-                <input
-                    id="qteItem"
-                    onChange={majItems}
-                    ordre={ordre}
-                    propriete="qte"
-                    type="number"
-                />
-                <input
-                    id="prixItem"
-                    onChange={majItems}
-                    ordre={ordre}
-                    propriete="prix"
-                    step="0.01"
-                    type="number"
-                />
-                <span> $</span>
-            </fieldset>
-            <Suggestions>
                 {
-                    montrerSugg === ordre.toString() &&
-                    suggestions.map((item, index) => {
-                        return (
-                            <li
-                                key={index}
-                                onClick={() => choisirLui(item)}
-                            >{item}</li>
-                        )
-                    })
+                    montrerSugg === ordre.toString() && suggestions !== [] &&
+                    <Suggestions>
+                            {
+                                suggestions.map((item, index) => {
+                                    return (
+                                        <li
+                                            key={index}
+                                            onClick={() => choisirLui(item)}
+                                        >{item}</li>
+                                    )
+                                })
+                            }
+                    </Suggestions>
                 }
-            </Suggestions>
+                {
+                    choix !== "" &&
+                    <ItemChoisi>
+                            <p>{choix}</p>
+                            <FontAwesomeIcon icon={faPencil} onClick={modifierItem} />
+                    </ItemChoisi>
+                }
+                
+            </BoiteSugg>
+            <p>à</p>
+            <input
+                id="prixItem"
+                onChange={majItems}
+                ordre={ordre}
+                propriete="prix"
+                step="0.01"
+                type="number"
+            />
+            <p> $</p>
+            <FontAwesomeIcon icon={faClose} onClick={() => moinsUn(ordre)} />
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
-    fieldset {
-        display: grid;
-        grid-template-columns: 200px max-content 100px auto 20px;
-        input {
-            border-radius: 5px;
-            padding: 5px;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    input {
+        border-bottom: 2px solid var(--c2);
+        border-left: 2px solid var(--c4);
+        border-radius: 5px;
+        border-right: 2px solid var(--c4);
+        border-top: 2px solid var(--c4);
+        padding: 5px;
+        &[type=number] {
+            width: 100px;
         }
     }
 `
 
+const BoiteSugg = styled.div`
+    position: relative;
+`
 
-const ItemChoisi = styled.p`
-
+const ItemChoisi = styled.div`
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    p {
+        margin: 0;
+    }
+    svg {
+        cursor: pointer;
+    }
 `
 
 const Suggestions = styled.ul`
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    background-color: var(--c2);
+    border-radius: 0 0 5px 5px;
     list-style-type: none;
+    margin: 0;
     padding-left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
     li {
-        background-color: var(--c4);
-        border-radius: 10px;
+        color: var(--c1);
         cursor: pointer;
         padding: 10px;
         &:hover {
             background-color: var(--c5);
+            color: var(--c2);
         }
     }
 `
