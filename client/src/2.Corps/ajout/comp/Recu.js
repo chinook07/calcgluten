@@ -15,6 +15,7 @@ const Recu = ({ setEtape }) => {
     const [montrerSugg, setMontrerSugg] = useState();
     const [dateRecu, setDateRecu] = useState("");
     const [erreur, setErreur] = useState(false);
+    const [nouveauItem, setNouveauItem] = useState(false);
 
     const majMagasin = (e) => setMagasin(e.target.value);
     const majDate = (e) => setDateRecu(e.target.value);
@@ -29,7 +30,6 @@ const Recu = ({ setEtape }) => {
                 setTousItems(varItems);
             }
             if (propriete === "item") {
-                console.log("changement", valeurEntree, rang);
                 let liste = [];
                 baseComp.forEach(element => {
                     element.aliment.includes(valeurEntree) && liste.push(element.aliment)
@@ -55,8 +55,19 @@ const Recu = ({ setEtape }) => {
 
     const ajoutRecu = (e) => {
         e.preventDefault();
+        let dejaAchete = [];
         tousItems.forEach((item, index) => {
             console.log(item);
+            baseComp.forEach(i => {
+                if (i.aliment === item.item) {
+                    console.log("J'ai déjà acheté une", i.aliment, i._id);
+                    dejaAchete.push(i._id)
+                }
+            })
+            if (true) {
+                setNouveauItem(true)
+                console.log(tousItems, "tousItems", baseComp);
+            }
             if (item.qte === null || item.item === null || item.prix === null) {
                 console.log("erreur avec item", index + 1);
                 setErreur(true)
@@ -85,6 +96,7 @@ const Recu = ({ setEtape }) => {
                 }
             }
         })
+        console.log(dejaAchete);
     }
 
     const plusUn = (e) => {

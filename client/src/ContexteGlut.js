@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { parseISO, compareDesc } from "date-fns";
 
 export const ContexteGlut = createContext();
 
@@ -14,7 +15,11 @@ const ContexteGlutProvider = ({ children }) => {
             .then(res => res.json())
             .then((donnees) => {
                 console.log(donnees);
-                setTousRecus(donnees.items);
+                let tousRecusChrono = donnees.recus;
+                tousRecusChrono.sort(function (a, b) {
+                    return compareDesc(parseISO(a.date), parseISO(b.date))
+                });
+                setTousRecus(tousRecusChrono);
                 setBaseComp(donnees.catalogue);
                 setPrete(true);
                 return donnees;

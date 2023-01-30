@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import { useState, useContext } from "react";
-import { parseISO, formatDistanceToNow } from "date-fns";
+import { getYear, parseISO, formatDistanceToNow } from "date-fns";
 
 import { ContexteGlut } from "../../../ContexteGlut";
+import Filtres from "./Filtres";
 import { fr } from "date-fns/locale";
 
-const Derniers = () => {
+const TousDerniers = () => {
 
     const { tousRecus } = useContext(ContexteGlut);
 
     const [details, setDetails] = useState();
+    const [filtrer, setFiltrer] = useState();
     
     const modifierRecu = (recu) => {
         console.log("modifier", recu);
@@ -20,6 +22,10 @@ const Derniers = () => {
 
     return (
         <Wrapper>
+            <Filtres
+                filtrer={filtrer}
+                setFiltrer={setFiltrer}
+            />
             {
                 tousRecus.map((item, index) => {
                     let combienDeTemps = formatDistanceToNow(parseISO(item.date), {locale: fr})
@@ -27,7 +33,7 @@ const Derniers = () => {
                     item.items.forEach(e => {
                         sommeRecu += e.prix * e.qte
                     })
-                    if (index < 5) {
+                    if ((filtrer !== undefined && getYear(parseISO(item.date)) === filtrer) || filtrer === undefined) {
                         return (
                             <FacRecente key={index}>
                                 <Resume>
@@ -99,4 +105,4 @@ const Article = styled.div`
     justify-content: space-between;
 `
 
-export default Derniers;
+export default TousDerniers;

@@ -3,6 +3,7 @@ import { ExternalLink } from "react-external-link";
 import { Link } from "react-router-dom";
 
 import Derniers from "./comp/Derniers";
+import TousDerniers from "./comp/TousDerniers";
 
 const Accueil = () => {
     return (
@@ -12,6 +13,8 @@ const Accueil = () => {
             <p>Montant total à déclarer pour l'année en cours :</p>
             <h2>Derniers reçus</h2>
             <Derniers />
+            <h2>Tous les reçus</h2>
+            <TousDerniers />
         </>
     )
 }

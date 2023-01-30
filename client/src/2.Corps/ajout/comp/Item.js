@@ -8,10 +8,6 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
 
     const [choix, setChoix] = useState("");
 
-    // const ajouterDollar = (e) => {
-    //     console.log(e.target.value);
-    //     e.target.value = `${e.target.value} $`
-    // }
     const choisirLui = (choixDuChef) => {
         console.log(choixDuChef);
         setSuggestions([])

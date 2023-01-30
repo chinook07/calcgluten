@@ -22,10 +22,10 @@ const closeSesame = async () => {
 
 const toutesDonnees = async (req, res) => {
     await openSesame();
-    const items = await db.collection("recus").find().toArray();
+    const recus = await db.collection("recus").find().toArray();
     const catalogue = await db.collection("basecomp").find().toArray();
     await closeSesame();
-    return res.status(200).json({ status: 200, items, catalogue, message: "Voici vos reçus." })
+    return res.status(200).json({ status: 200, recus, catalogue, message: "Voici vos reçus." })
 }
 
 const ajoutRecu = async (req, res) => {
