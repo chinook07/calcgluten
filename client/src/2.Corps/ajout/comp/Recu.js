@@ -57,16 +57,16 @@ const Recu = ({ setEtape }) => {
         e.preventDefault();
         let dejaAchete = [];
         tousItems.forEach((item, index) => {
-            console.log(item);
+            console.log("item num", index, item);
             baseComp.forEach(i => {
                 if (i.aliment === item.item) {
-                    console.log("J'ai déjà acheté une", i.aliment, i._id);
-                    dejaAchete.push(i._id)
+                    console.log("J'ai déjà acheté une", i.aliment, "(", i._id, "), svp ajoutez", item.qte);
+                    dejaAchete.push({id: i._id, qtePlus: item.qte})
                 }
             })
             if (true) {
                 setNouveauItem(true)
-                console.log(tousItems, "tousItems", baseComp);
+                console.log("tous items achetés", tousItems, "base de données", baseComp);
             }
             if (item.qte === null || item.item === null || item.prix === null) {
                 console.log("erreur avec item", index + 1);
@@ -75,28 +75,28 @@ const Recu = ({ setEtape }) => {
                 setErreur(false);
                 if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
                     setErreur(false);
-                    console.log(tousItems);
-                    // fetch("/api/ajout-recu", {
-                    //     method: "POST",
-                    //     body: JSON.stringify({
-                    //         magasin: magasin,
-                    //         date: dateRecu,
-                    //         items: tousItems
-                    //     }),
-                    //     headers: {
-                    //         "Content-Type": "application/json",
-                    //         "Accept": "application/json"
-                    //     },
-                    // })
-                    //     .then(() => setF5(f5 + 1))
-                    //     .then(() => setEtape(2))
+                    console.log(tousItems, dejaAchete);
+                    fetch("/api/ajout-recu", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            magasin: magasin,
+                            date: dateRecu,
+                            items: tousItems,
+                            majBase: dejaAchete
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                    })
+                        .then(() => setF5(f5 + 1))
+                        // .then(() => setEtape(2))
                 } else {
                     setErreur(true);
                     console.log("magasin ou date manquante, ou pas d'items");
                 }
             }
         })
-        console.log(dejaAchete);
     }
 
     const plusUn = (e) => {

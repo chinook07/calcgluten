@@ -16,8 +16,6 @@ const Derniers = () => {
     }
     const basculerDetails = (num) => details === num ? setDetails() : setDetails(num);
 
-    console.log(tousRecus);
-
     return (
         <Wrapper>
             {

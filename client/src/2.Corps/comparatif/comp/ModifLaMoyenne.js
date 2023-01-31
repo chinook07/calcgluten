@@ -11,6 +11,7 @@ const ModifLaMoyenne = ({ aliment }) => {
 
     const maJPrix = (e) => {
         e.preventDefault();
+        console.log("Formulaire envoyé");
         fetch(`/api/modifier-moyenne`, {
             method: "PUT",
             headers: {
@@ -27,7 +28,7 @@ const ModifLaMoyenne = ({ aliment }) => {
 
     return (
         <Wrapper>
-            <p>En moyenne, combien vous coûterait le prix de l'article <Gras>{aliment}</Gras> si vous n'étiez pas atteint-e de la maladie de coéliaque?</p>
+            <p>En moyenne, combien vous coûterait le prix de l'article <Gras>{aliment.aliment}</Gras> si vous n'étiez pas atteint-e de la maladie de coéliaque?</p>
             <form onSubmit={maJPrix}>
                 <label>Prix avant la « taxe sans gluten » :</label>
                 <input

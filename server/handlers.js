@@ -29,9 +29,13 @@ const toutesDonnees = async (req, res) => {
 }
 
 const ajoutRecu = async (req, res) => {
-    const { magasin, date, items } = req.body;
+    const { magasin, date, items, majBase } = req.body;
     await openSesame();
-    await db.collection("recus").insertOne({ magasin, date, items });
+    // await db.collection("recus").insertOne({ magasin, date, items }); besoin de réactiver
+    await majBase.forEach(element => {
+        console.log(element);
+        db.collection("basecomp").updateOne({ _id: element.id }, { $set:{ achete: 42 } })
+    });
     await closeSesame();
     return res.status(201).json({ status: 201, message: `nouveau reçu ajouté` })
 }
@@ -50,8 +54,9 @@ const nouvMoyenne = async (req, res) => {
 
 const modifMoyenne = async (req, res) => {
     const { aliment, prixEntre } = req.body;
+    console.log(aliment);
     await openSesame();
-    await db.collection("basecomp").updateOne({}, { $set:{ [aliment]: parseFloat(prixEntre) } })
+    await db.collection("basecomp").updateOne({ aliment: aliment.aliment }, { $set:{ prix: parseFloat(prixEntre) } })
     await closeSesame();
     return res.status(200).json({ status: 200, message: "Moyenne mis à jour" })
 }

@@ -37,7 +37,7 @@ const TousDerniers = () => {
                         return (
                             <FacRecente key={index}>
                                 <Resume>
-                                    <p>Il y a {combienDeTemps}</p>
+                                    <p>{item.date}</p>
                                     <p>{item.magasin}</p>
                                     <p>{sommeRecu} $</p>
                                     <button onClick={() => modifierRecu(index)}>Modifier</button>
