@@ -28,7 +28,6 @@ const TousDerniers = () => {
             />
             {
                 tousRecus.map((item, index) => {
-                    let combienDeTemps = formatDistanceToNow(parseISO(item.date), {locale: fr})
                     let sommeRecu = 0;
                     item.items.forEach(e => {
                         sommeRecu += e.prix * e.qte

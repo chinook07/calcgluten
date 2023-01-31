@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 
 import { ContexteGlut } from "../../../ContexteGlut";
 
-const ModifLaMoyenne = ({ aliment }) => {
+const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
 
     const { f5, setF5 } = useContext(ContexteGlut);
 
@@ -26,10 +26,16 @@ const ModifLaMoyenne = ({ aliment }) => {
 
     const editionPrix = (e) => setPrixEntre(e.target.value);
 
+    const fermerBoite = (e) => {
+        e.preventDefault();
+        setModifierMoy("");
+    }
+
     return (
-        <Wrapper>
+        <Wrapper onSubmit={maJPrix}>
+            <Fermer onClick={fermerBoite}>Fermer</Fermer>
             <p>En moyenne, combien vous coûterait le prix de l'article <Gras>{aliment.aliment}</Gras> si vous n'étiez pas atteint-e de la maladie de coéliaque?</p>
-            <form onSubmit={maJPrix}>
+            <fieldset>
                 <label>Prix avant la « taxe sans gluten » :</label>
                 <input
                     min="0"
@@ -37,12 +43,20 @@ const ModifLaMoyenne = ({ aliment }) => {
                     step="0.01"
                     type="number"
                 />
-            </form>
+                <button type="submit">Envoyer</button>
+            </fieldset>
+            
         </Wrapper>
     )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.form``
+
+const Fermer = styled.button`
+    display: block;
+    margin: 0 0 0 auto;
+    text-align: right;
+`
 
 const Gras = styled.span`
     font-weight: bold;

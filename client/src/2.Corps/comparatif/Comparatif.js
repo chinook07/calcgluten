@@ -29,7 +29,10 @@ const Comparatif = () => {
         catalogue.push(article);
     })
 
-    const modifierMoyenne = (aliment) => setModifierMoy(aliment);
+    const modifierMoyenne = (aliment) => {
+        setModifierMoy(aliment);
+        setAjoutArticle(false);
+    };
 
     const supprimerMoyenne = (aliment) => {
         console.log("on va supprimer", aliment);
@@ -45,7 +48,10 @@ const Comparatif = () => {
             .then(() => setF5(f5 + 1))
     }
 
-    const basculeAjoutArticle = () => ajoutArticle ? setAjoutArticle(false) : setAjoutArticle(true);
+    const basculeAjoutArticle = () => {
+        setModifierMoy("")
+        ajoutArticle ? setAjoutArticle(false) : setAjoutArticle(true)
+    };
 
     return (
         <Wrapper>
@@ -58,7 +64,11 @@ const Comparatif = () => {
                                 <p>{item.achete}</p>
                                 <p>{item.prix} $</p>
                                 <button onClick={() => modifierMoyenne(item)}>Modifier</button>
-                                <button onClick={() => supprimerMoyenne(item.aliment)}>Supprimer</button>
+                                {
+                                    item.achete === 0
+                                        ? <button onClick={() => supprimerMoyenne(item.aliment)}>Supprimer</button>
+                                        : <button disabled>Supprimer</button>
+                                }
                             </li>
                         )
                     })
@@ -66,7 +76,7 @@ const Comparatif = () => {
             </ul>
             {
                 modifierMoy !== "" &&
-                    <ModifLaMoyenne aliment={modifierMoy} />
+                    <ModifLaMoyenne aliment={modifierMoy} setModifierMoy={setModifierMoy} />
             }
             <Ajouter onClick={basculeAjoutArticle}>Ajouter un article comparatif</Ajouter>
             {
@@ -78,12 +88,21 @@ const Comparatif = () => {
 }
 
 const Wrapper = styled.div`
+    ul {
+        padding: 0;
+    }
     li {
         align-items: center;
-        background-color: var(--c4);
         display: grid;
         grid-template-columns: 30% 50px 50px 90px 90px;
         justify-content: space-between;
+        padding: 5px 10px;
+        &:nth-child(odd) {
+            background-color: var(--c3);
+        }
+        &:nth-child(even) {
+            background-color: var(--c4);
+        }
         p {
             margin: 10px 0;
         }
@@ -94,7 +113,16 @@ const Wrapper = styled.div`
 `
 
 const Ajouter = styled.button`
-
+    background-color: var(--c4);
+    border: 1px solid var(--c3);
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 15px auto;
+    padding: 5px 10px;
+    &:hover {
+        transform: scale(1.1);
+    }
 `
 
 export default Comparatif;

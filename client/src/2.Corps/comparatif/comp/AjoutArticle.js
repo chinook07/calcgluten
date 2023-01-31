@@ -56,9 +56,16 @@ const AjoutArticle = ({ setAjoutArticle }) => {
 
 const Wrapper = styled.form`
     fieldset {
+        align-items: center;
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        text-align: center;
+        input,
+        button {
+            max-width: 250px;
+        }
     }
 `
 

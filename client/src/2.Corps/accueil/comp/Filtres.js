@@ -29,7 +29,12 @@ const Filtres = ({ filtrer, setFiltrer }) => {
             {
                 toutesAnnees.map((item, index) => {
                     return (
-                        <li key={index} onClick={() => changerFiltre(item)}>{item}</li>
+                        <ChoixAnnee
+                            annee={item}
+                            filtrer={filtrer}
+                            key={index}
+                            onClick={() => changerFiltre(item)}
+                        >{item}</ChoixAnnee>
                     )
                 })
             }
@@ -42,11 +47,13 @@ const Wrapper = styled.ul`
     flex-wrap: wrap;
     gap: 10px;
     list-style-type: none;
-    li {
-        background-color: var(--c4);
-        cursor: pointer;
-        padding: 10px;
-    }
+`
+
+const ChoixAnnee = styled.li`
+    background-color: var(${props => props.filtrer === props.annee ? "--c2" : "--c4"});
+    color: var(${props => props.filtrer === props.annee ? "--c11" : "--c10"});
+    cursor: pointer;
+    padding: 10px;
 `
 
 export default Filtres;
