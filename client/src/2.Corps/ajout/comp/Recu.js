@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 
 import { ContexteGlut } from "../../../ContexteGlut";
 import Item from "./Item";
+import { id } from "date-fns/locale";
 
 const Recu = ({ setEtape }) => {
 
@@ -15,7 +16,6 @@ const Recu = ({ setEtape }) => {
     const [montrerSugg, setMontrerSugg] = useState();
     const [dateRecu, setDateRecu] = useState("");
     const [erreur, setErreur] = useState(false);
-    const [nouveauItem, setNouveauItem] = useState(false);
 
     const majMagasin = (e) => setMagasin(e.target.value);
     const majDate = (e) => setDateRecu(e.target.value);
@@ -54,49 +54,65 @@ const Recu = ({ setEtape }) => {
     }
 
     const ajoutRecu = (e) => {
+        setErreur(false);
         e.preventDefault();
         let dejaAchete = [];
+        let pasDejaAchete = [];
         tousItems.forEach((item, index) => {
-            console.log("item num", index, item);
+            let nouvelAchat = true;
             baseComp.forEach(i => {
                 if (i.aliment === item.item) {
-                    console.log("J'ai déjà acheté une", i.aliment, "(", i._id, "), svp ajoutez", item.qte);
-                    dejaAchete.push({id: i._id, qtePlus: item.qte})
+                    dejaAchete.push({ id: i._id, qtePlus: parseInt(item.qte) });
+                    nouvelAchat = false;
                 }
+                // Vérifier si les items dans la BD ont été achetés, si oui, mettre à jour la BD.
             })
-            if (true) {
-                setNouveauItem(true)
-                console.log("tous items achetés", tousItems, "base de données", baseComp);
+            if (nouvelAchat === true) {
+                pasDejaAchete.push({
+                    aliment: item.item,
+                    prix: 0,
+                    achete: parseInt(item.qte)
+                });
             }
             if (item.qte === null || item.item === null || item.prix === null) {
                 console.log("erreur avec item", index + 1);
                 setErreur(true)
-            } else {
-                setErreur(false);
-                if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
-                    setErreur(false);
-                    console.log(tousItems, dejaAchete);
-                    fetch("/api/ajout-recu", {
-                        method: "POST",
+            }
+        })
+        console.log("achete", dejaAchete, "pas acheté", pasDejaAchete);
+        console.log("tous items achetés", tousItems, "base de données", baseComp);
+        if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
+            // fetch("/api/ajout-recu", {
+            //     method: "POST",
+            //     body: JSON.stringify({
+            //         magasin: magasin,
+            //         date: dateRecu,
+            //         items: tousItems
+            //     }),
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         "Accept": "application/json"
+            //     },
+            // })
+            //     .then(
+                    fetch("/api/nouvel-achat", {
+                        method: "PUT",
                         body: JSON.stringify({
-                            magasin: magasin,
-                            date: dateRecu,
-                            items: tousItems,
-                            majBase: dejaAchete
+                            dejaAchete: dejaAchete
                         }),
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json"
                         },
                     })
-                        .then(() => setF5(f5 + 1))
-                        // .then(() => setEtape(2))
-                } else {
-                    setErreur(true);
-                    console.log("magasin ou date manquante, ou pas d'items");
-                }
-            }
-        })
+                        .then(res => res.json())
+                // )
+                .then(() => setF5(f5 + 1))
+                // .then(() => setEtape(2))
+        } else {
+            setErreur(true);
+            console.log("magasin manquant");
+        }
     }
 
     const plusUn = (e) => {
@@ -112,7 +128,6 @@ const Recu = ({ setEtape }) => {
     }
 
     const moinsUn = (item) => {
-        console.log(item, tousItems);
         let copieItems = tousItems;
         copieItems.pop(item, 1);
         console.log(item, tousItems);
@@ -195,6 +210,7 @@ const Wrapper = styled.form`
 `
 
 const BoutonAjout = styled.button`
+    cursor: pointer;
     margin: 0 auto;
     width: 100px;
 `
@@ -205,6 +221,7 @@ const Legende = styled.div`
 `
 
 const BoutonEnv = styled.button`
+    cursor: pointer;
     margin: 0 auto;
     width: 100px;
 `

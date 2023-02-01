@@ -9,7 +9,6 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
     const [choix, setChoix] = useState("");
 
     const choisirLui = (choixDuChef) => {
-        console.log(choixDuChef);
         setSuggestions([])
         setChoix(choixDuChef);
         majItems(choixDuChef, ordre);
@@ -70,7 +69,11 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
                 type="number"
             />
             <p> $</p>
-            <FontAwesomeIcon icon={faClose} onClick={() => moinsUn(ordre)} />
+            <FontAwesomeIcon
+                icon={faClose}
+                onClick={() => moinsUn(ordre)}
+                title="supprimer item"
+            />
         </Wrapper>
     )
 }
@@ -89,6 +92,9 @@ const Wrapper = styled.div`
         &[type=number] {
             width: 100px;
         }
+    }
+    > svg {
+        cursor: pointer;
     }
 `
 

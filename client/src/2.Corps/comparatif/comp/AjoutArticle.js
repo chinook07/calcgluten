@@ -14,7 +14,6 @@ const AjoutArticle = ({ setAjoutArticle }) => {
     const editionPrix = (e) => setPrixEntre(e.target.value);
 
     const envoyerAjout = (e) => {
-        console.log("envoyer");
         e.preventDefault();
         fetch(`/api/nouvelle-moyenne`, {
             method: "POST",
@@ -22,7 +21,7 @@ const AjoutArticle = ({ setAjoutArticle }) => {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({ alimentEntre, prixEntre })
+            body: JSON.stringify({ alimentEntre, prixEntre, qteAchete: 0 })
         })
             .then(res => res.json())
             .then(() => {

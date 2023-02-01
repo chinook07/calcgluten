@@ -6,6 +6,7 @@ const {
     toutesDonnees,
     nouvMoyenne,
     modifMoyenne,
+    nouvelAchat,
     supprimerMoyenne
 } = require("./handlers")
 
@@ -19,6 +20,7 @@ express()
     // .delete ("/api/supprimer-recu", supprimerRecu)
     .post("/api/nouvelle-moyenne", nouvMoyenne)
     .put("/api/modifier-moyenne", modifMoyenne)
+    .put("/api/nouvel-achat", nouvelAchat)
     .delete("/api/supprimer-moyenne", supprimerMoyenne)
     .get("*", (req, res) => {
         res.status(404).json({
