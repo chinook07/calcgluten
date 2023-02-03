@@ -17,6 +17,17 @@ const Details = ({ item }) => {
             },
             body: JSON.stringify({ aDetruire: item })
         })
+            .then(() => 
+                fetch("/api/reduire-inventaire", {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        aEnlever: item.items
+                    }),
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+        }))
             .then(res => res.json())
             .then(() => setF5(f5 + 1))
     }

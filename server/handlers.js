@@ -45,7 +45,12 @@ const nouvelAchat = async (req, res) => {
         await openSesame();
         for (const element of dejaAchete) {
             console.log(47, element);
-            await db.collection("basecomp").findOneAndUpdate({ _id: ObjectId(element.id) }, { $set: { achete: element.qtePlus }});
+            const target = await db.collection("basecomp").findOne({ _id: ObjectId(element.id) })
+            const nouveauStock = target.achete + element.qtePlus;
+            console.log(target.achete, "+", element.qtePlus, "=", nouveauStock);
+            await db.collection("basecomp").findOneAndUpdate(
+                { _id: ObjectId(element.id) }, { $set: { achete: nouveauStock } }
+            );
         }
         await closeSesame();
     }
@@ -54,12 +59,9 @@ const nouvelAchat = async (req, res) => {
 
 const nouvelItem = async (req, res) => {
     const { pasDejaAchete } = req.body;
-    console.log(57, "pas acheté", pasDejaAchete);
     if (pasDejaAchete.length > 0) {
-        console.log("nouveaux items");
         await openSesame();
         for (const element of pasDejaAchete) {
-            console.log(62, element);
             await db.collection("basecomp").insertOne({
                 aliment: element.aliment,
                 prix: parseFloat(element.prix),
@@ -77,6 +79,20 @@ const supprimerRecu = async (req, res) => {
     await db.collection("recus").findOneAndDelete({ _id: ObjectId(aDetruire._id) });
     await closeSesame();
     return res.status(200).json({ status: 200, message: "Reçu supprimé" })
+}
+
+const reduireInventaire = async (req, res) => {
+    const { aEnlever } = req.body;
+    await openSesame();
+    for (const element of aEnlever) {
+        console.log(element);
+        const target = await db.collection("basecomp").findOne({ aliment: element.item })
+        const nouveauStock = target.achete - parseInt(element.qte)
+        console.log(target.achete, "-", element.qte, "=", nouveauStock);
+        await db.collection("basecomp").updateOne({ aliment: element.item }, { $set:{ achete: parseFloat(nouveauStock) } })
+    }
+    await closeSesame;
+    return res.status(200).json({ status: 200, message: "Inventaire mis à jour" })
 }
 
 const nouvMoyenne = async (req, res) => {
@@ -117,5 +133,6 @@ module.exports = {
     nouvMoyenne,
     supprimerRecu,
     modifMoyenne,
+    reduireInventaire,
     supprimerMoyenne
 }
