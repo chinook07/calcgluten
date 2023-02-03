@@ -21,7 +21,10 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
             body: JSON.stringify({ aliment, prixEntre })
         })
             .then(res => res.json())
-            .then(() => setF5(f5 + 1))
+            .then(() => {
+                setF5(f5 + 1)
+                setModifierMoy("");
+            })
     }
 
     const editionPrix = (e) => setPrixEntre(e.target.value);
@@ -43,9 +46,8 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
                     step="0.01"
                     type="number"
                 />
-                <button type="submit">Envoyer</button>
+                <button type="submit">Mettre à jour</button>
             </fieldset>
-            
         </Wrapper>
     )
 }

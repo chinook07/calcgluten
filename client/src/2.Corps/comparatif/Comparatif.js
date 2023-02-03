@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import ModifLaMoyenne from "./comp/ModifLaMoyenne";
 import AjoutArticle from "./comp/AjoutArticle";
@@ -11,6 +11,17 @@ const Comparatif = () => {
 
     const [modifierMoy, setModifierMoy] = useState("");
     const [ajoutArticle, setAjoutArticle] = useState(false);
+    const [prixManquants, setPrixManquants] = useState(0);
+
+    useEffect(() => {
+        let manquants = false;
+        baseComp.forEach(item => {
+            if (item.prix === "0,00") {
+                manquants += 1;
+            }
+        })
+        manquants && setPrixManquants(manquants);
+    }, [baseComp])
 
     let catalogue = [];
 
@@ -28,6 +39,7 @@ const Comparatif = () => {
         article.prix = nombreArrondi;
         catalogue.push(article);
     })
+    console.log(catalogue);
 
     const modifierMoyenne = (aliment) => {
         setModifierMoy(aliment);
@@ -55,6 +67,10 @@ const Comparatif = () => {
 
     return (
         <Wrapper>
+            {
+                prixManquants > 0 &&
+                <p>Attention, il manque {prixManquants} prix.</p>
+            }
             <ul>
                 {
                     catalogue.map((item, index) => {
@@ -62,7 +78,7 @@ const Comparatif = () => {
                             <li key={index}>
                                 <p>{item.aliment}</p>
                                 <p>{item.achete}</p>
-                                <p>{item.prix} $</p>
+                                <Complet prix={item.prix}>{item.prix} $</Complet>
                                 <button onClick={() => modifierMoyenne(item)}>Modifier</button>
                                 {
                                     item.achete === 0
@@ -110,6 +126,11 @@ const Wrapper = styled.div`
             height: 25px;
         }
     }
+`
+
+const Complet = styled.p`
+    color: ${props => props.prix === "0,00" && "red"};
+    font-weight: ${props => props.prix === "0,00" && "bold"};
 `
 
 const Ajouter = styled.button`
