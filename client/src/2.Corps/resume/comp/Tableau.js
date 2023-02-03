@@ -12,6 +12,7 @@ const Tableau = () => {
     useEffect(() => {
         let somme = 0;
         baseComp.forEach(element => {
+            console.log(element);
             let paye = {qte: 0, unitaire: 0, total: 0};
             tousRecus.forEach(recu => {
                 const match = recu.items.find(e => e.item === element.aliment)
@@ -23,10 +24,12 @@ const Tableau = () => {
             })
             element.prixSG = paye.total / element.achete;
             element.totalSG = paye.total;
-            element.admissible = (element.prixSG - element.prix) * element.achete;
+            element.admissible = (element.prixSG - parseFloat(element.prix)) * element.achete;
             somme += element.admissible
         });
-        setGrandTotal(somme)
+        let sommeArr = somme.toFixed(2);
+        sommeArr = sommeArr.replace(".", ",");
+        setGrandTotal(sommeArr)
         console.log('baseComp', baseComp);
         setPret(true)
     }, [tousRecus])
@@ -47,17 +50,25 @@ const Tableau = () => {
                 <tbody>
                     {
                         baseComp.map((item, index) => {
+                            console.log(item.prix);
+                            let prixVirgule;
+                            if (typeof (item.prix) == "number") {
+                                let prixArr = item.prix.toFixed(2);
+                                prixVirgule = prixArr.replace(".", ",");
+                            } else {
+                                prixVirgule = item.prix
+                            }
+                            
+                            let prixSGArr = item.prixSG.toFixed(2);
+                            let prixSGVirgule = prixSGArr.replace(".", ",");
                             return (
                                 <tr key={index}>
                                     <td>{item.aliment}</td>
                                     <td>{item.achete}</td>
-                                    <td>{item.prix}</td>
-                                    {
-                                        !isNaN(baseComp[0].prixSG) &&
-                                        <td>{item.prixSG}</td>
-                                    }
-                                    <td>{item.prixSG - item.prix}</td>
-                                    <td>{item.admissible}</td>
+                                    <td>{prixVirgule}</td>
+                                    <td>{prixSGVirgule}</td>
+                                    <td>{(item.prixSG - parseFloat(item.prix)).toFixed(2).replace(".", ",")}</td>
+                                    <td>{item.admissible.toFixed(2).replace(".", ",")}</td>
                                 </tr>
                             )
                         })
@@ -82,7 +93,6 @@ const Tableau = () => {
             </>
         )
     }
-    
 }
 
 const Wrapper = styled.table`
