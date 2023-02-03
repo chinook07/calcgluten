@@ -82,19 +82,19 @@ const Recu = ({ setEtape }) => {
         console.log("achete", dejaAchete, "pas acheté", pasDejaAchete);
         console.log("tous items achetés", tousItems, "base de données", baseComp);
         if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
-            // fetch("/api/ajout-recu", {
-            //     method: "POST",
-            //     body: JSON.stringify({
-            //         magasin: magasin,
-            //         date: dateRecu,
-            //         items: tousItems
-            //     }),
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         "Accept": "application/json"
-            //     },
-            // })
-            //     .then(
+            fetch("/api/ajout-recu", {
+                method: "POST",
+                body: JSON.stringify({
+                    magasin: magasin,
+                    date: dateRecu,
+                    items: tousItems
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+            })
+                .then(() => 
                     fetch("/api/nouvel-achat", {
                         method: "PUT",
                         body: JSON.stringify({
@@ -104,11 +104,24 @@ const Recu = ({ setEtape }) => {
                             "Content-Type": "application/json",
                             "Accept": "application/json"
                         },
+                    }))
+                .then(() => 
+                    fetch("/api/nouvel-item", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            pasDejaAchete: pasDejaAchete
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        }
                     })
-                        .then(res => res.json())
+                )
+                .then(res => res.json())
                 // )
                 .then(() => setF5(f5 + 1))
                 // .then(() => setEtape(2))
+                
         } else {
             setErreur(true);
             console.log("magasin manquant");

@@ -7,6 +7,7 @@ const {
     nouvMoyenne,
     modifMoyenne,
     nouvelAchat,
+    nouvelItem,
     supprimerMoyenne
 } = require("./handlers")
 
@@ -21,6 +22,7 @@ express()
     .post("/api/nouvelle-moyenne", nouvMoyenne)
     .put("/api/modifier-moyenne", modifMoyenne)
     .put("/api/nouvel-achat", nouvelAchat)
+    .post("/api/nouvel-item", nouvelItem)
     .delete("/api/supprimer-moyenne", supprimerMoyenne)
     .get("*", (req, res) => {
         res.status(404).json({
