@@ -8,6 +8,7 @@ const {
     modifMoyenne,
     nouvelAchat,
     nouvelItem,
+    supprimerRecu,
     supprimerMoyenne
 } = require("./handlers")
 
@@ -18,7 +19,7 @@ express()
     .get("/api/toutes-donnees", toutesDonnees)
     .post("/api/ajout-recu", ajoutRecu)
     // .put("/api/modif-recu", modifRecu)
-    // .delete ("/api/supprimer-recu", supprimerRecu)
+    .delete ("/api/supprimer-recu", supprimerRecu)
     .post("/api/nouvelle-moyenne", nouvMoyenne)
     .put("/api/modifier-moyenne", modifMoyenne)
     .put("/api/nouvel-achat", nouvelAchat)

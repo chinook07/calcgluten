@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import { parseISO, formatDistanceToNow } from "date-fns";
 
 import { ContexteGlut } from "../../../ContexteGlut";
+import Details from "./Details";
 import { fr } from "date-fns/locale";
 
 const Derniers = () => {
@@ -37,20 +38,7 @@ const Derniers = () => {
                                 </Resume>
                                 {
                                     details === index &&
-                                        <Details>
-                                        {
-                                            item.items.map((article, index) => {
-                                                return (
-                                                    <Article key={index}>
-                                                        <p>{article.qte} ×</p>
-                                                        <p>{article.item}</p>
-                                                        <p>{article.prix} $</p>
-                                                    </Article>
-                                                    
-                                                )
-                                            })
-                                        }
-                                    </Details>
+                                    <Details item={item} />
                                 }
                             </FacRecente>
                         )
@@ -87,14 +75,6 @@ const Resume = styled.div`
     button {
         height: 25px;
     }
-`
-
-const Details = styled.div``
-
-const Article = styled.div`
-    display: flex;
-    gap: 10px;
-    justify-content: space-between;
 `
 
 export default Derniers;

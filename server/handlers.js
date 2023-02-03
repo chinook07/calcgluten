@@ -31,7 +31,7 @@ const toutesDonnees = async (req, res) => {
 const ajoutRecu = async (req, res) => {
     const { magasin, date, items } = req.body;
     await openSesame();
-    // await db.collection("recus").insertOne({ magasin, date, items });
+    await db.collection("recus").insertOne({ magasin, date, items });
     console.log(35, "insérez", items.length, "items");
     await closeSesame();
     return res.status(201).json({ status: 201, message: `nouveau reçu ajouté` })
@@ -71,6 +71,14 @@ const nouvelItem = async (req, res) => {
     return res.status(200).json({ status: 200, message: "nouvel item" })
 }
 
+const supprimerRecu = async (req, res) => {
+    const { aDetruire } = req.body;
+    await openSesame();
+    await db.collection("recus").findOneAndDelete({ _id: ObjectId(aDetruire._id) });
+    await closeSesame();
+    return res.status(200).json({ status: 200, message: "Reçu supprimé" })
+}
+
 const nouvMoyenne = async (req, res) => {
     const { alimentEntre, prixEntre, qteAchete } = req.body;
     await openSesame();
@@ -107,6 +115,7 @@ module.exports = {
     nouvelItem,
     toutesDonnees,
     nouvMoyenne,
+    supprimerRecu,
     modifMoyenne,
     supprimerMoyenne
 }
