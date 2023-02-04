@@ -26,13 +26,14 @@ const Derniers = () => {
                     item.items.forEach(e => {
                         sommeRecu += e.prix * e.qte
                     })
+                    let sommeVirg = ((parseFloat(sommeRecu)).toFixed(2)).replace(".", ",");
                     if (index < 5) {
                         return (
                             <FacRecente key={index}>
                                 <Resume>
                                     <p>Il y a {combienDeTemps}</p>
                                     <p>{item.magasin}</p>
-                                    <p>{sommeRecu} $</p>
+                                    <p>{sommeVirg} $</p>
                                     <button onClick={() => modifierRecu(index)}>Modifier</button>
                                     <button onClick={() => basculerDetails(index)}>Détails</button>
                                 </Resume>

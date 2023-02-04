@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { useState, useContext } from "react";
-import { getYear, parseISO, formatDistanceToNow } from "date-fns";
+import { getYear, parseISO } from "date-fns";
 
 import { ContexteGlut } from "../../../ContexteGlut";
 import Details from "./Details";
-import Filtres from "./Filtres";
-import { fr } from "date-fns/locale";
+import Filtres from "../../comp/Filtres";
 
 const TousDerniers = () => {
 
@@ -31,13 +30,14 @@ const TousDerniers = () => {
                     item.items.forEach(e => {
                         sommeRecu += e.prix * e.qte
                     })
+                    let sommeVirg = ((parseFloat(sommeRecu)).toFixed(2)).replace(".", ",");
                     if ((filtrer !== undefined && getYear(parseISO(item.date)) === filtrer) || filtrer === undefined) {
                         return (
                             <FacRecente key={index}>
                                 <Resume>
                                     <p>{item.date}</p>
                                     <p>{item.magasin}</p>
-                                    <p>{sommeRecu} $</p>
+                                    <p>{sommeVirg} $</p>
                                     <button onClick={() => modifierRecu(index)}>Modifier</button>
                                     <button onClick={() => basculerDetails(index)}>Détails</button>
                                 </Resume>

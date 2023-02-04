@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useContext, useEffect } from "react";
 
-import { ContexteGlut } from "../../../ContexteGlut";
+import { ContexteGlut } from "../../ContexteGlut";
 import { getYear, parseISO } from 'date-fns'
 
 const Filtres = ({ filtrer, setFiltrer }) => {
