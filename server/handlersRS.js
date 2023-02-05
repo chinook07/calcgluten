@@ -44,6 +44,16 @@ const supprimerRecu = async (req, res) => {
     return res.status(200).json({ status: 200, message: "Reçu supprimé" })
 }
 
+const ajouterItemAchete = async (req, res) => {
+    const { recuAModifier, qte, item, prix } = req.body;
+    await openSesame();
+    await db.collection("recus").findOneAndUpdate(
+        { _id: ObjectId(recuAModifier) }, { $push: { items: {qte, item, prix} } }
+    )
+    await closeSesame();
+    return res.status(200).json({ status: 200, message: "Enlevé un item" })
+}
+
 const enleverItemAchete = async (req, res) => {
     const { recuAModifier, aEnlever } = req.body;
     await openSesame();
@@ -55,8 +65,9 @@ const enleverItemAchete = async (req, res) => {
 }
 
 module.exports = {
-    ajoutRecu,
     toutesDonnees,
+    ajoutRecu,
     supprimerRecu,
+    ajouterItemAchete,
     enleverItemAchete
 }

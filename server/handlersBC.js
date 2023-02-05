@@ -20,6 +20,22 @@ const closeSesame = async () => {
     console.log("disconnected!");
 }
 
+const nouvelItem = async (req, res) => {
+    const { pasDejaAchete } = req.body;
+    if (pasDejaAchete.length > 0) {
+        await openSesame();
+        for (const element of pasDejaAchete) {
+            await db.collection("basecomp").insertOne({
+                aliment: element.aliment,
+                prix: parseFloat(element.prix),
+                achete: element.achete
+            })
+        }
+        await closeSesame();
+    }
+    return res.status(200).json({ status: 200, message: "nouvel item" })
+}
+
 const nouvelAchat = async (req, res) => {
     const { dejaAchete } = req.body;
     if (dejaAchete.length > 0) {
@@ -36,20 +52,19 @@ const nouvelAchat = async (req, res) => {
     return res.status(201).json({ status: 201, message: `nouvel achat` })
 }
 
-const nouvelItem = async (req, res) => {
-    const { pasDejaAchete } = req.body;
-    if (pasDejaAchete.length > 0) {
-        await openSesame();
-        for (const element of pasDejaAchete) {
-            await db.collection("basecomp").insertOne({
-                aliment: element.aliment,
-                prix: parseFloat(element.prix),
-                achete: element.achete
-            })
-        }
+const augmenterInventaire = async (req, res) => {
+    const { qte, item } = req.body;
+    await openSesame();
+    const target = await db.collection("basecomp").findOne({ aliment: item });
+    if (target === null) {
         await closeSesame();
+        return res.status(200).json({ status: 200, ajoute: false, message: "Inventaire pas mis à jour" })
+    } else {
+        const nouveauStock = target.achete + qte;
+        await db.collection("basecomp").findOneAndUpdate({ aliment: item }, { $set: { achete: nouveauStock } })
+        await closeSesame();
+        return res.status(200).json({ status: 200, message: "Inventaire mis à jour" })
     }
-    return res.status(200).json({ status: 200, message: "nouvel item" })
 }
 
 const reduireInventaire = async (req, res) => {
@@ -97,6 +112,7 @@ module.exports = {
     nouvelItem,
     nouvMoyenne,
     modifMoyenne,
+    augmenterInventaire,
     reduireInventaire,
     supprimerMoyenne
 }

@@ -37,30 +37,30 @@ const Details = ({ item }) => {
 
     const enleverItem = (article) => {
         console.log("enlever", item, article);
-        fetch(`/api/enlever-item-achete`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                recuAModifier: item._id,
-                aEnlever: article
-            })
-        })
-            .then(() => 
-                fetch("/api/reduire-inventaire", {
-                    method: "PUT",
-                    body: JSON.stringify({
-                        aEnlever: item.items
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-        }))
-            .then(res => res.json())
-            .then(() => setF5(f5 + 1))
+        // fetch(`/api/enlever-item-achete`, {
+        //     method: "PUT",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Accept": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         recuAModifier: item._id,
+        //         aEnlever: article
+        //     })
+        // })
+        //     .then(() => 
+        //         fetch("/api/reduire-inventaire", {
+        //             method: "PUT",
+        //             body: JSON.stringify({
+        //                 aEnlever: item.items
+        //             }),
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //                 "Accept": "application/json"
+        //             },
+        // }))
+        //     .then(res => res.json())
+        //     .then(() => setF5(f5 + 1))
     }
 
     const ajouterItem = () => {
@@ -92,7 +92,7 @@ const Details = ({ item }) => {
             }
             {
                 ajoutItem &&
-                <NouvelItem />
+                <NouvelItem recu={item} />
             }
             <BoutonAction onClick={ajouterItem}>
                 <span>Ajouter</span>

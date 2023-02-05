@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-const NouvelItem = () => {
+import { ContexteGlut } from "../../../ContexteGlut";
 
+const NouvelItem = ({ recu }) => {
+
+    const { f5, setF5 } = useContext(ContexteGlut);
     const [entreeQte, setEntreeQte] = useState(0);
     const [entreeItem, setEntreeItem] = useState(0);
     const [entreePrix, setEntreePrix] = useState(0);
@@ -16,6 +19,51 @@ const NouvelItem = () => {
     const envoyerAjout = (e) => {
         e.preventDefault();
         console.log("envoyez");
+        fetch(`/api/ajouter-item-achete`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                recuAModifier: recu._id,
+                qte: parseInt(entreeQte),
+                item: entreeItem,
+                prix: parseFloat(entreePrix)
+            })
+        })
+            .then(() =>
+                fetch("/api/augmenter-inventaire", {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        qte: parseInt(entreeQte),
+                        item: entreeItem
+                    }),
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                }))
+            .then(res => res.json())
+            .then(req => {
+                if (req.ajoute === false) {
+                    console.log("ajouter");
+                    fetch(`/api/nouvelle-moyenne`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                        body: JSON.stringify({
+                            alimentEntre: entreeItem,
+                            prixEntre: 0,
+                            qteAchete: parseInt(entreeQte)
+                        })
+                    })
+                        .then(res => res.json())
+                }
+            })
+            .then(() => setF5(f5 + 1))
     }
 
     return (
