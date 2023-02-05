@@ -23,7 +23,6 @@ const Resume = () => {
     return (
         <>
             <h2>Tableau résumé</h2>
-            <p>Voici un texte.</p>
             <Filtres filtrer={filtrer} setFiltrer={setFiltrer} />
             {
                 manquants === 1 &&

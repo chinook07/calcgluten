@@ -3,7 +3,6 @@ import { useState, useContext } from "react";
 
 import { ContexteGlut } from "../../../ContexteGlut";
 import Item from "./Item";
-import { id } from "date-fns/locale";
 
 const Recu = ({ setEtape }) => {
 
@@ -65,7 +64,6 @@ const Recu = ({ setEtape }) => {
                     dejaAchete.push({ id: i._id, qtePlus: parseInt(item.qte) });
                     nouvelAchat = false;
                 }
-                // Vérifier si les items dans la BD ont été achetés, si oui, mettre à jour la BD.
             })
             if (nouvelAchat === true) {
                 pasDejaAchete.push({

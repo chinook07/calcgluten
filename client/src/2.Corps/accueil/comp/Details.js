@@ -63,7 +63,9 @@ const Details = ({ item }) => {
             .then(() => setF5(f5 + 1))
     }
 
-    const ajouterItem = () => !ajoutItem && setAjoutItem(true);
+    const ajouterItem = () => {
+        ajoutItem ? setAjoutItem(false) : setAjoutItem(true);
+    }
 
     return (
         <Wrapper>
@@ -79,10 +81,10 @@ const Details = ({ item }) => {
                             <p>{article.qte} ×</p>
                             <p>{article.item}</p>
                             <p>{prixVirg} $</p>
-                            <button onClick={() => enleverItem(article)}>
+                            <BoutonEnl onClick={() => enleverItem(article)}>
                                 <span>Enlever</span>
                                 <FontAwesomeIcon icon={faBan} />
-                            </button>
+                            </BoutonEnl>
                         </Article>
                     )
                 })
@@ -102,7 +104,9 @@ const Details = ({ item }) => {
     )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    padding: 10px 0;
+`
 
 const BoutonAction = styled.button`
     display: flex;
@@ -112,10 +116,20 @@ const BoutonAction = styled.button`
 `
 
 const Article = styled.div`
+    align-items: center;
     display: flex;
     gap: 10px;
     justify-content: space-between;
     padding: 10px;
+    p {
+        margin: 0;
+    }
+`
+
+const BoutonEnl = styled.button`
+    display: flex;
+    gap: 10px;
+    padding: 5px 10px;
 `
 
 export default Details;

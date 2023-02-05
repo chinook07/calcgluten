@@ -86,7 +86,6 @@ const Wrapper = styled.div`
     input {
         border-bottom: 2px solid var(--c2);
         border-left: 2px solid var(--c4);
-        border-radius: 5px;
         border-right: 2px solid var(--c4);
         border-top: 2px solid var(--c4);
         padding: 5px;

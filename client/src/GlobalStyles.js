@@ -20,6 +20,10 @@ export default createGlobalStyle`
         margin: 5px;
         text-align: center;
     }
+    input,
+    button {
+        border-radius: 10px;
+    }
     :root {
         --c0: #9e5f32;
         --c1: #e8d4b0;

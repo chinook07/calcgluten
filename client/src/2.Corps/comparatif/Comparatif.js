@@ -134,7 +134,6 @@ const Complet = styled.p`
 const Ajouter = styled.button`
     background-color: var(--c4);
     border: 1px solid var(--c3);
-    border-radius: 10px;
     cursor: pointer;
     display: block;
     margin: 15px auto;

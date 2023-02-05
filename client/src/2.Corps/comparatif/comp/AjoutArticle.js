@@ -64,6 +64,7 @@ const Wrapper = styled.form`
         input,
         button {
             max-width: 250px;
+            padding: 5px 10px;
         }
     }
 `
