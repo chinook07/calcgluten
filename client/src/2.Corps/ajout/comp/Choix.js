@@ -6,7 +6,6 @@ const Choix = ({ setEtape }) => {
 
     const choisirExistant = () => {
         setEtape(1);
-        console.log("existant");
     }
     
     return (

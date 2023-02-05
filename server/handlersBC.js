@@ -61,19 +61,29 @@ const augmenterInventaire = async (req, res) => {
         return res.status(200).json({ status: 200, ajoute: false, message: "Inventaire pas mis à jour" })
     } else {
         const nouveauStock = target.achete + qte;
-        await db.collection("basecomp").findOneAndUpdate({ aliment: item }, { $set: { achete: nouveauStock } })
+        await db.collection("basecomp").findOneAndUpdate({ aliment: item }, { $set: { achete: nouveauStock } });
         await closeSesame();
         return res.status(200).json({ status: 200, message: "Inventaire mis à jour" })
     }
 }
 
 const reduireInventaire = async (req, res) => {
+    const { qte, item } = req.body;
+    await openSesame();
+    const target = await db.collection("basecomp").findOne({ aliment: item });
+    const nouveauStock = target.achete - qte;
+    await db.collection("basecomp").findOneAndUpdate({ aliment: item }, { $set: { achete: nouveauStock } })
+    await closeSesame;
+    return res.status(200).json({ status: 200, message: "Inventaire mis à jour" })
+}
+
+const reduireInventaireMax = async (req, res) => {
     const { aEnlever } = req.body;
     await openSesame();
     for (const element of aEnlever) {
         const target = await db.collection("basecomp").findOne({ aliment: element.item })
-        const nouveauStock = target.achete - parseInt(element.qte)
-        await db.collection("basecomp").updateOne({ aliment: element.item }, { $set:{ achete: parseFloat(nouveauStock) } })
+        const nouveauStock = target.achete - parseInt(element.qte);
+        await db.collection("basecomp").findOneAndUpdate({ aliment: element.item }, { $set: { achete: parseFloat(nouveauStock) } })
     }
     await closeSesame;
     return res.status(200).json({ status: 200, message: "Inventaire mis à jour" })
@@ -114,5 +124,6 @@ module.exports = {
     modifMoyenne,
     augmenterInventaire,
     reduireInventaire,
+    reduireInventaireMax,
     supprimerMoyenne
 }

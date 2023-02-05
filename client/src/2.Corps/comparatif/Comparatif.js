@@ -39,7 +39,6 @@ const Comparatif = () => {
         article.prix = nombreArrondi;
         catalogue.push(article);
     })
-    console.log(catalogue);
 
     const modifierMoyenne = (aliment) => {
         setModifierMoy(aliment);
@@ -47,7 +46,6 @@ const Comparatif = () => {
     };
 
     const supprimerMoyenne = (aliment) => {
-        console.log("on va supprimer", aliment);
         fetch(`/api/supprimer-moyenne`, {
             method: "DELETE",
             headers: {

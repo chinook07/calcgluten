@@ -14,19 +14,12 @@ const Ajout = () => {
             {
                 etape === 0 &&
                 <>
-                    <p>Voulez-vous ajouter un nouveau reçu ou modifier un existant?</p>
-                    <Choix setEtape={setEtape} />
-                </>
-            }
-            {
-                etape === 1 &&
-                <>
                     <p>Nouveau reçu</p>
                     <Recu setEtape={setEtape} />
                 </>
             }
             {
-                etape === 2 &&
+                etape === 1 &&
                 <>
                     <p>Votre reçu a été ajouté.</p>
                 </>

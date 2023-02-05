@@ -75,12 +75,9 @@ const Recu = ({ setEtape }) => {
                 });
             }
             if (item.qte === null || item.item === null || item.prix === null) {
-                console.log("erreur avec item", index + 1);
                 setErreur(true)
             }
         })
-        console.log("achete", dejaAchete, "pas acheté", pasDejaAchete);
-        console.log("tous items achetés", tousItems, "base de données", baseComp);
         if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
             fetch("/api/ajout-recu", {
                 method: "POST",
@@ -120,11 +117,10 @@ const Recu = ({ setEtape }) => {
                 .then(res => res.json())
                 // )
                 .then(() => setF5(f5 + 1))
-                // .then(() => setEtape(2))
+                .then(() => setEtape(1))
                 
         } else {
             setErreur(true);
-            console.log("magasin manquant");
         }
     }
 
@@ -143,7 +139,6 @@ const Recu = ({ setEtape }) => {
     const moinsUn = (item) => {
         let copieItems = tousItems;
         copieItems.pop(item, 1);
-        console.log(item, tousItems);
         setTousItems(copieItems);
         setNumItems(numItems - 1)
     }

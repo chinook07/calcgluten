@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 
 import { ContexteGlut } from "../../../ContexteGlut";
 
-const NouvelItem = ({ recu }) => {
+const NouvelItem = ({ recu, setAjoutItem }) => {
 
     const { f5, setF5 } = useContext(ContexteGlut);
     const [entreeQte, setEntreeQte] = useState(0);
@@ -18,7 +18,6 @@ const NouvelItem = ({ recu }) => {
 
     const envoyerAjout = (e) => {
         e.preventDefault();
-        console.log("envoyez");
         fetch(`/api/ajouter-item-achete`, {
             method: "PUT",
             headers: {
@@ -47,7 +46,6 @@ const NouvelItem = ({ recu }) => {
             .then(res => res.json())
             .then(req => {
                 if (req.ajoute === false) {
-                    console.log("ajouter");
                     fetch(`/api/nouvelle-moyenne`, {
                         method: "POST",
                         headers: {
@@ -63,19 +61,20 @@ const NouvelItem = ({ recu }) => {
                         .then(res => res.json())
                 }
             })
-            .then(() => setF5(f5 + 1))
+            .then(() => {
+                setAjoutItem(false);
+                setF5(f5 + 1);
+            })
     }
 
     return (
         <Wrapper onSubmit={envoyerAjout}>
-            <p>{entreeQte}, {entreeItem}, {entreePrix}</p>
             <fieldset>
                 <input
                     id="qteItem"
                     onChange={majItems}
                     type="number"
                 />
-                
                 <input
                     id="nomItem"
                     onChange={majItems}

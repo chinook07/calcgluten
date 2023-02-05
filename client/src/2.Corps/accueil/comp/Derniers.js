@@ -12,9 +12,6 @@ const Derniers = () => {
 
     const [details, setDetails] = useState();
     
-    const modifierRecu = (recu) => {
-        console.log("modifier", recu);
-    }
     const basculerDetails = (num) => details === num ? setDetails() : setDetails(num);
 
     return (
@@ -34,7 +31,6 @@ const Derniers = () => {
                                     <p>Il y a {combienDeTemps}</p>
                                     <p>{item.magasin}</p>
                                     <p>{sommeVirg} $</p>
-                                    <button onClick={() => modifierRecu(index)}>Modifier</button>
                                     <button onClick={() => basculerDetails(index)}>Détails</button>
                                 </Resume>
                                 {
@@ -68,7 +64,7 @@ const Resume = styled.div`
     align-items: center;
     display: grid;
     gap: 10px;
-    grid-template-columns: auto auto 50px 90px 90px;
+    grid-template-columns: auto auto 50px 90px;
     padding: 5px;
     p {
         margin: 10px 0;

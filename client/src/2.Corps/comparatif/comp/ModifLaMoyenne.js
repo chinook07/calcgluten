@@ -11,7 +11,6 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
 
     const maJPrix = (e) => {
         e.preventDefault();
-        console.log("Formulaire envoyé");
         fetch(`/api/modifier-moyenne`, {
             method: "PUT",
             headers: {

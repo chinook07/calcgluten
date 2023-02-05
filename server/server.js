@@ -16,6 +16,7 @@ const {
     nouvelItem,
     augmenterInventaire,
     reduireInventaire,
+    reduireInventaireMax,
     supprimerMoyenne
 } = require("./handlersBC")
 
@@ -33,6 +34,7 @@ express()
     .post("/api/nouvelle-moyenne", nouvMoyenne)
     .put("/api/augmenter-inventaire", augmenterInventaire)
     .put("/api/reduire-inventaire", reduireInventaire)
+    .put("/api/reduire-inventaire-max", reduireInventaireMax)
     .put("/api/modifier-moyenne", modifMoyenne)
     .put("/api/nouvel-achat", nouvelAchat)
     .post("/api/nouvel-item", nouvelItem)
@@ -44,4 +46,4 @@ express()
             message: "Désolé, erreur🍞!"
         })
     })
-    .listen(8000, () => console.log(`Listening on port 8000`));
+    .listen(8000, () => console.log(`Écoute active sur port 8000`));
