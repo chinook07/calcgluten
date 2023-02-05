@@ -62,6 +62,7 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
             <p>à</p>
             <input
                 id="prixItem"
+                min="0"
                 onChange={majItems}
                 ordre={ordre}
                 propriete="prix"

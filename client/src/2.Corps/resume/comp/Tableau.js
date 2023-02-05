@@ -23,13 +23,11 @@ const Tableau = ({ filtrer }) => {
                     const match = recu.items.find(e => e.item === element.aliment);
                     if (match !== undefined) {
                         paye.qte = parseInt(paye.qte) + parseInt(match.qte);
-                        // console.log(paye.qte, match);
                         paye.total = parseFloat(paye.total) + parseFloat(match.prix) * match.qte;
                         paye.unitaire = paye.total / paye.qte;
                         declarable += (paye.unitaire - parseFloat(element.prix)) * match.qte;
                     }
                 }
-                
             })
             element.qteAnnee = paye.qte
             element.prixSG = paye.unitaire;
@@ -54,20 +52,17 @@ const Tableau = ({ filtrer }) => {
     } else {
         return (
             <>
-                <div>En chargement</div>
+                <p>En chargement</p>
             </>
         )
     }
 }
 
 const Wrapper = styled.table`
-    border: solid black 1px;
-    td {
-        border: 1px solid gray;
-        padding: 5px;
-        &:not(:first-child) {
-            text-align: right;
-        }
+    border: solid black 2px;
+    border-collapse: collapse;
+    @media screen and (max-width: 550px) {
+        font-size: 14px;
     }
 `
 

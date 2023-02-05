@@ -2,16 +2,20 @@ const express = require("express");
 const morgan = require("morgan");
 
 const {
-    ajoutRecu,
-    toutesDonnees,
     nouvMoyenne,
     modifMoyenne,
     nouvelAchat,
     nouvelItem,
-    supprimerRecu,
     reduireInventaire,
     supprimerMoyenne
-} = require("./handlers")
+} = require("./handlersBC")
+
+const {
+    ajoutRecu,
+    toutesDonnees,
+    supprimerRecu,
+    enleverItemAchete
+} = require("./handlersRS")
 
 express()
     .use(morgan("tiny"))
@@ -25,6 +29,7 @@ express()
     .post("/api/nouvelle-moyenne", nouvMoyenne)
     .put("/api/modifier-moyenne", modifMoyenne)
     .put("/api/nouvel-achat", nouvelAchat)
+    .put("/api/enlever-item-achete", enleverItemAchete)
     .post("/api/nouvel-item", nouvelItem)
     .delete("/api/supprimer-moyenne", supprimerMoyenne)
     .get("*", (req, res) => {

@@ -16,6 +16,10 @@ const PiedTab = ({ grandTotal }) => {
     )
 }
 
-const Wrapper = styled.tfoot``
+const Wrapper = styled.tfoot`
+    th {
+        padding: 5px;
+    }
+`
 
 export default PiedTab;

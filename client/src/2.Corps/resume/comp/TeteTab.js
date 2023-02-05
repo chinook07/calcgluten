@@ -6,15 +6,19 @@ const TeteTab = () => {
             <tr>
                 <th>Produit</th>
                 <th>Qté.</th>
-                <th>Coût avec gluten</th>
-                <th>Coût sans gluten</th>
+                <th>Coût régulier</th>
+                <th>Coût SG</th>
                 <th>Différentiel</th>
-                <th>Montant admissible</th>
+                <th>Déductible</th>
             </tr>
         </Wrapper>
     )
 }
 
-const Wrapper = styled.thead``
+const Wrapper = styled.thead`
+    th {
+        padding: 5px;
+    }
+`
 
 export default TeteTab;

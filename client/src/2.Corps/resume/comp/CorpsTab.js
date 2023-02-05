@@ -34,7 +34,15 @@ const CorpsTab = ({ baseComp }) => {
     )
 }
 
-const Wrapper = styled.tbody``
+const Wrapper = styled.tbody`
+    td {
+        border: 1px solid gray;
+        padding: 5px;
+        &:not(:first-child) {
+            text-align: right;
+        }
+    }
+`
 
 const Prix = styled.td`
     color: ${props => props.prixVirgule === "0,00" && "red"};
