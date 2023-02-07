@@ -150,14 +150,14 @@ const Recu = ({ setEtape }) => {
     return (
         <Wrapper onSubmit={ajoutRecu}>
             <fieldset>
-                <div>
+                <MagEtDate>
                     <label>Magasin</label>
                     <input
                         type="text"
                         onChange={majMagasin}
                         onKeyUp={entreeMagasin}
                     />
-                </div>
+                </MagEtDate>
                 <BoutonAjout onClick={plusUn}>Ajouter item</BoutonAjout>
                 {
                     numItems > 0 &&
@@ -186,13 +186,13 @@ const Recu = ({ setEtape }) => {
                     numItems > 0 &&
                     <BoutonAjout onClick={plusUn}>Ajouter item</BoutonAjout>
                 }
-                <div>
+                <MagEtDate>
                     <label>Date de l'achat</label>
                     <input
                         onChange={majDate}
                         type="date"
                     />
-                </div>
+                </MagEtDate>
                 {
                     numItems > 0 &&
                     <BoutonEnv type="submit">Sauvegarder</BoutonEnv>
@@ -212,12 +212,23 @@ const Wrapper = styled.form`
         display: flex;
         flex-direction: column;
         gap: 15px;
+        div input {
+            padding: 5px 10px;
+        }
     }
+`
+
+const MagEtDate = styled.div`
+    align-items: center;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
 `
 
 const BoutonAjout = styled.button`
     cursor: pointer;
     margin: 0 auto;
+    padding: 5px 10px;
     width: 100px;
 `
 
@@ -229,6 +240,7 @@ const Legende = styled.div`
 const BoutonEnv = styled.button`
     cursor: pointer;
     margin: 0 auto;
+    padding: 5px 10px;
     width: 100px;
 `
 

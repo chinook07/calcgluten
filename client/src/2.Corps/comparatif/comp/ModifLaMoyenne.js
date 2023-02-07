@@ -51,11 +51,30 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
     )
 }
 
-const Wrapper = styled.form``
+const Wrapper = styled.form`
+    fieldset {
+        align-items: center;
+        border: 1px solid var(--c2);
+        border-radius: 10px;
+        display: flex;
+        gap: 10px;
+        input {
+            padding: 5px 10px;
+            width: 90px;
+        }
+        button {
+            padding: 5px 10px;
+        }
+        @media screen and (max-width: 550px) {
+            flex-direction: column;
+        }
+    }
+`
 
 const Fermer = styled.button`
     display: block;
     margin: 0 0 0 auto;
+    padding: 5px 10px;
     text-align: right;
 `
 

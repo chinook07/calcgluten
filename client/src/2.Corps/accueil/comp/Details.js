@@ -117,19 +117,29 @@ const BoutonAction = styled.button`
 
 const Article = styled.div`
     align-items: center;
-    display: flex;
+    display: grid;
     gap: 10px;
+    grid-template-columns: 30px calc(100% - 240px) 60px 90px;
     justify-content: space-between;
     padding: 10px;
     p {
         margin: 0;
     }
+    @media screen and (max-width: 450px) {
+        grid-template-columns: 25px calc(100% - 150px) 55px 40px;
+    }
 `
 
 const BoutonEnl = styled.button`
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
     padding: 5px 10px;
+    @media screen and (max-width: 450px) {
+        justify-content: center;
+        span {
+            display: none;
+        }
+    }
 `
 
 export default Details;

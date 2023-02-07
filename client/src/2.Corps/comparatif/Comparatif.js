@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import ModifLaMoyenne from "./comp/ModifLaMoyenne";
 import AjoutArticle from "./comp/AjoutArticle";
 import { ContexteGlut } from "../../ContexteGlut";
+import { faPenToSquare, faDumpster } from "@fortawesome/free-solid-svg-icons";
 
 const Comparatif = () => {
 
@@ -77,11 +79,20 @@ const Comparatif = () => {
                                 <p>{item.aliment}</p>
                                 <p>{item.achete}</p>
                                 <Complet prix={item.prix}>{item.prix} $</Complet>
-                                <button onClick={() => modifierMoyenne(item)}>Modifier</button>
+                                <button onClick={() => modifierMoyenne(item)}>
+                                    <span>Modifier</span>
+                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                </button>
                                 {
                                     item.achete === 0
-                                        ? <button onClick={() => supprimerMoyenne(item.aliment)}>Supprimer</button>
-                                        : <button disabled>Supprimer</button>
+                                        ? <button onClick={() => supprimerMoyenne(item.aliment)}>
+                                            <span>Supprimer</span>
+                                            <FontAwesomeIcon icon={faDumpster} />
+                                        </button>
+                                        : <button disabled>
+                                            <span>Supprimer</span>
+                                            <FontAwesomeIcon icon={faDumpster} />
+                                        </button>
                                 }
                             </li>
                         )
@@ -108,7 +119,7 @@ const Wrapper = styled.div`
     li {
         align-items: center;
         display: grid;
-        grid-template-columns: 30% 50px 50px 90px 90px;
+        grid-template-columns: 30% 25px 55px 100px 110px;
         justify-content: space-between;
         padding: 5px 10px;
         &:nth-child(odd) {
@@ -121,7 +132,18 @@ const Wrapper = styled.div`
             margin: 10px 0;
         }
         button {
-            height: 25px;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+        }
+        @media screen and (max-width: 520px) {
+            grid-template-columns: 30% 25px 55px 40px 40px;
+            button {
+                justify-content: center;
+                span {
+                    display: none;
+                }
+            }
         }
     }
 `

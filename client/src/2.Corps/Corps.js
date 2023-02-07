@@ -32,6 +32,9 @@ const Corps = () => {
 const Wrapper = styled.main`
     min-height: calc(100vh - 200px);
     padding: 10px;
+    @media screen and (max-width: 580px) {
+        min-height: calc(100vh - 250px);
+    }
 `
 
 export default Corps;

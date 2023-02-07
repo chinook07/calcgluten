@@ -127,12 +127,10 @@ const NouvelItem = ({ recu, setAjoutItem }) => {
                             id="prixItem"
                             min="0"
                             onChange={majItems}
-                            
                             step="0.01"
                             type="number"
                         />
                     </div>
-                    
                 </ObjetChiffres>
                 <button type="submit">
                     <span>Sauvegarder</span>
@@ -177,6 +175,10 @@ const ObjetAchete = styled.div`
     }
     input {
         padding: 5px;
+    }
+    @media screen and (max-width: 555px) {
+        flex-direction: column;
+        gap: 10px;
     }
 `
 

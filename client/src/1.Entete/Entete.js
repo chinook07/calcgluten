@@ -19,7 +19,7 @@ const Wrapper = styled.header`
     align-items: center;
     background-color: var(--c0);
     display: flex;
-    /* height: 100px; */
+    height: 100px;
     justify-content: space-between;
     padding: 15px;
     h1 {
@@ -41,6 +41,7 @@ const Wrapper = styled.header`
         }
     }
     @media screen and (max-width: 580px) {
+        height: 150px;
         flex-direction: column;
     }
 `

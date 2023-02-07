@@ -74,7 +74,7 @@ const Resume = styled.div`
         margin: 10px 0;
     }
     button {
-        height: 25px;
+        padding: 5px 10px;
     }
 `
 

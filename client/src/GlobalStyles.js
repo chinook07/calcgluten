@@ -20,8 +20,14 @@ export default createGlobalStyle`
         margin: 5px;
         text-align: center;
     }
-    input,
     button {
+        border-radius: 10px;
+        &:not(:disabled):hover {
+            background-color: var(--c1);
+            cursor: pointer;
+        }
+    }
+    input {
         border-radius: 10px;
     }
     :root {

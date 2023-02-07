@@ -25,7 +25,6 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
                 propriete="qte"
                 type="number"
             />
-            
             <p>×</p>
             <BoiteSugg>
                 <input
@@ -83,6 +82,7 @@ const Wrapper = styled.div`
     align-items: center;
     display: flex;
     gap: 10px;
+    justify-content: center;
     input {
         border-bottom: 2px solid var(--c2);
         border-left: 2px solid var(--c4);
