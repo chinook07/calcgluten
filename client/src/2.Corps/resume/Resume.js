@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 
 import { ContexteGlut } from "../../ContexteGlut";

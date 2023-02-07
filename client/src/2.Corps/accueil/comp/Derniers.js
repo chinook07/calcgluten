@@ -15,7 +15,7 @@ const Derniers = () => {
     const basculerDetails = (num) => details === num ? setDetails() : setDetails(num);
 
     return (
-        <Wrapper>
+        <>
             {
                 tousRecus.map((item, index) => {
                     let combienDeTemps = formatDistanceToNow(parseISO(item.date), {locale: fr})
@@ -28,7 +28,7 @@ const Derniers = () => {
                         return (
                             <FacRecente key={index}>
                                 <Resume>
-                                    <p>Il y a {combienDeTemps}</p>
+                                    <p><time dateTime={item.date}>Il y a {combienDeTemps}</time></p>
                                     <p>{item.magasin}</p>
                                     <p>{sommeVirg} $</p>
                                     <button onClick={() => basculerDetails(index)}>Détails</button>
@@ -42,14 +42,13 @@ const Derniers = () => {
                     }
                 })
             }
-        </Wrapper>
+        </>
     )
 }
 
-const Wrapper = styled.div``
-
 const FacRecente = styled.div`
-    p {
+    p,
+    time {
         color: var(--c11);
     }
     &:nth-child(odd) {

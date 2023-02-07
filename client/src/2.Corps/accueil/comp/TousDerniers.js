@@ -16,7 +16,7 @@ const TousDerniers = () => {
     const basculerDetails = (num) => details === num ? setDetails() : setDetails(num);
 
     return (
-        <Wrapper>
+        <>
             <Filtres
                 filtrer={filtrer}
                 setFiltrer={setFiltrer}
@@ -32,7 +32,7 @@ const TousDerniers = () => {
                         return (
                             <FacRecente key={index}>
                                 <Resume>
-                                    <p>{item.date}</p>
+                                    <p><time dateTime={item.date}>{item.date}</time></p>
                                     <p>{item.magasin}</p>
                                     <p>{sommeVirg} $</p>
                                     <button onClick={() => basculerDetails(index)}>Détails</button>
@@ -46,14 +46,13 @@ const TousDerniers = () => {
                     }
                 })
             }
-        </Wrapper>
+        </>
     )
 }
 
-const Wrapper = styled.div``
-
 const FacRecente = styled.div`
-    p {
+    p,
+    time {
         color: var(--c11);
     }
     &:nth-child(odd) {

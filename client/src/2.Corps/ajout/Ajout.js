@@ -1,7 +1,5 @@
-import styled from "styled-components";
 import { useState } from "react";
 
-import Choix from "./comp/Choix";
 import Recu from "./comp/Recu";
 
 const Ajout = () => {

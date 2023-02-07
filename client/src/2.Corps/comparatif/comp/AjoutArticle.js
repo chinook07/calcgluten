@@ -31,8 +31,8 @@ const AjoutArticle = ({ setAjoutArticle }) => {
     }
 
     return (
-        <Wrapper onSubmit={envoyerAjout}>
-            <fieldset>
+        <form onSubmit={envoyerAjout}>
+            <Champs>
                 <label htmlFor="articleAjout">Quel article souhaitez-vous ajouter dans la base de données?</label>
                 <input
                     id="articleAjout"
@@ -48,24 +48,22 @@ const AjoutArticle = ({ setAjoutArticle }) => {
                     type="number"
                 />
                 <button>Ajouter</button>
-            </fieldset>
-        </Wrapper>
+            </Champs>
+        </form>
     )
 }
 
-const Wrapper = styled.form`
-    fieldset {
-        align-items: center;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-        input,
-        button {
-            max-width: 250px;
-            padding: 5px 10px;
-        }
+const Champs = styled.fieldset`
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    input,
+    button {
+        max-width: 250px;
+        padding: 5px 10px;
     }
 `
 

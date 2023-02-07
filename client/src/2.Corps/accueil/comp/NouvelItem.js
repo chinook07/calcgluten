@@ -199,7 +199,6 @@ const ObjetChiffres = styled.div`
             width: 100px;
         }
     }
-    
 `
 
 export default NouvelItem;

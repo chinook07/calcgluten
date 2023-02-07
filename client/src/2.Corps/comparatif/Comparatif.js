@@ -66,12 +66,12 @@ const Comparatif = () => {
     };
 
     return (
-        <Wrapper>
+        <>
             {
                 prixManquants > 0 &&
                 <p>Attention, il manque {prixManquants} prix.</p>
             }
-            <ul>
+            <Toutes>
                 {
                     catalogue.map((item, index) => {
                         return (
@@ -98,7 +98,7 @@ const Comparatif = () => {
                         )
                     })
                 }
-            </ul>
+            </Toutes>
             {
                 modifierMoy !== "" &&
                     <ModifLaMoyenne aliment={modifierMoy} setModifierMoy={setModifierMoy} />
@@ -108,14 +108,12 @@ const Comparatif = () => {
                 ajoutArticle &&
                     <AjoutArticle setAjoutArticle={setAjoutArticle} />
             }
-        </Wrapper>
+        </>
     )
 }
 
-const Wrapper = styled.div`
-    ul {
-        padding: 0;
-    }
+const Toutes = styled.ul`
+    padding: 0;
     li {
         align-items: center;
         display: grid;

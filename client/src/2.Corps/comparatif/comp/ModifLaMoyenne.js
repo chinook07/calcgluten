@@ -34,10 +34,10 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
     }
 
     return (
-        <Wrapper onSubmit={maJPrix}>
+        <form onSubmit={maJPrix}>
             <Fermer onClick={fermerBoite}>Fermer</Fermer>
             <p>En moyenne, combien vous coûterait le prix de l'article <Gras>{aliment.aliment}</Gras> si vous n'étiez pas atteint-e de la maladie de coéliaque?</p>
-            <fieldset>
+            <Champs>
                 <label>Prix avant la « taxe sans gluten » :</label>
                 <input
                     min="0"
@@ -46,28 +46,26 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
                     type="number"
                 />
                 <button type="submit">Mettre à jour</button>
-            </fieldset>
-        </Wrapper>
+            </Champs>
+        </form>
     )
 }
 
-const Wrapper = styled.form`
-    fieldset {
-        align-items: center;
-        border: 1px solid var(--c2);
-        border-radius: 10px;
-        display: flex;
-        gap: 10px;
-        input {
-            padding: 5px 10px;
-            width: 90px;
-        }
-        button {
-            padding: 5px 10px;
-        }
-        @media screen and (max-width: 550px) {
-            flex-direction: column;
-        }
+const Champs = styled.fieldset`
+    align-items: center;
+    border: 1px solid var(--c2);
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    input {
+        padding: 5px 10px;
+        width: 90px;
+    }
+    button {
+        padding: 5px 10px;
+    }
+    @media screen and (max-width: 550px) {
+        flex-direction: column;
     }
 `
 

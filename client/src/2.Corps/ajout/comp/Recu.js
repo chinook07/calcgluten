@@ -148,8 +148,8 @@ const Recu = ({ setEtape }) => {
     }
 
     return (
-        <Wrapper onSubmit={ajoutRecu}>
-            <fieldset>
+        <form onSubmit={ajoutRecu}>
+            <Champs>
                 <MagEtDate>
                     <label>Magasin</label>
                     <input
@@ -201,20 +201,18 @@ const Recu = ({ setEtape }) => {
                     erreur &&
                     <div>Erreur!</div>
                 }
-            </fieldset>
-        </Wrapper>
+            </Champs>
+        </form>
     )
 }
 
-const Wrapper = styled.form`
-    fieldset {
-        border: 1px solid black;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        div input {
-            padding: 5px 10px;
-        }
+const Champs = styled.fieldset`
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    div input {
+        padding: 5px 10px;
     }
 `
 
