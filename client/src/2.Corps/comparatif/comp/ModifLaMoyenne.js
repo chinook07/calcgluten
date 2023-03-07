@@ -26,6 +26,10 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
             })
     }
 
+    const touchePese = (f) => {
+        if (f.key === "Enter") maJPrix(f);
+    }
+
     const editionPrix = (e) => setPrixEntre(e.target.value);
 
     const fermerBoite = (e) => {
@@ -42,6 +46,7 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
                 <input
                     min="0"
                     onChange={editionPrix}
+                    onKeyDown={touchePese}
                     step="0.01"
                     type="number"
                 />
