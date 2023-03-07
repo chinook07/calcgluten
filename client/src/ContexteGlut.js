@@ -14,12 +14,22 @@ const ContexteGlutProvider = ({ children }) => {
         fetch("/api/toutes-donnees")
             .then(res => res.json())
             .then((donnees) => {
-                console.log(donnees);
                 let tousRecusChrono = donnees.recus;
                 tousRecusChrono.sort(function (a, b) {
                     return compareDesc(parseISO(a.date), parseISO(b.date))
                 });
                 setTousRecus(tousRecusChrono);
+                donnees.catalogue.sort((c, d) => {
+                    let nomC = c.aliment.toUpperCase();
+                    let nomD = d.aliment.toUpperCase();
+                    if (nomC < nomD) {
+                        return -1
+                    } else if (nomC > nomD) {
+                        return 1
+                    } else {
+                        return 0
+                    };
+                });
                 setBaseComp(donnees.catalogue);
                 setPrete(true);
                 return donnees;

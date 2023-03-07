@@ -38,7 +38,7 @@ const Comparatif = () => {
                 nombreArrondi = nombreArrondi.concat("0");
             }
         }
-        article.prix = nombreArrondi;
+        article.prixLocale = nombreArrondi;
         catalogue.push(article);
     })
 
@@ -78,7 +78,7 @@ const Comparatif = () => {
                             <li key={index}>
                                 <p>{item.aliment}</p>
                                 <p>{item.achete}</p>
-                                <Complet prix={item.prix}>{item.prix} $</Complet>
+                                <Complet prix={item.prix}>{item.prixLocale} $</Complet>
                                 <button onClick={() => modifierMoyenne(item)}>
                                     <span>Modifier</span>
                                     <FontAwesomeIcon icon={faPenToSquare} />
@@ -147,8 +147,8 @@ const Toutes = styled.ul`
 `
 
 const Complet = styled.p`
-    color: ${props => props.prix === "0,00" && "red"};
-    font-weight: ${props => props.prix === "0,00" && "bold"};
+    color: ${props => props.prix === 0 && "red"};
+    font-weight: ${props => props.prix === 0 && "bold"};
 `
 
 const Ajouter = styled.button`

@@ -28,6 +28,7 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
             <p>×</p>
             <BoiteSugg>
                 <input
+                    autoComplete="off"
                     id="nomItem"
                     onChange={majItems}
                     ordre={ordre}
@@ -103,15 +104,21 @@ const BoiteSugg = styled.div`
 `
 
 const ItemChoisi = styled.div`
-    background-color: aqua;
+    background-color: var(--c1);
+    border-bottom: 2px solid var(--c2);
+    border-left: 2px solid var(--c4);
+    border-radius: 10px;
+    border-right: 2px solid var(--c4);
+    border-top: 2px solid var(--c4);
     display: flex;
     justify-content: space-between;
     margin: 0;
-    padding: 10px;
+    padding: 5px 10px;
     position: absolute;
     top: 0;
     width: 100%;
     p {
+        font-size: small;
         margin: 0;
     }
     svg {

@@ -67,13 +67,24 @@ const Resume = styled.div`
     align-items: center;
     display: grid;
     gap: 10px;
-    grid-template-columns: auto auto 50px 90px;
-    padding: 5px;
+    grid-template-columns: 125px auto 65px 90px;
+    padding: 5px 15px;
     p {
         margin: 10px 0;
     }
     button {
         padding: 5px 10px;
+    }
+    @media screen and (max-width: 550px) {
+        font-size: small;
+        grid-template-columns: 80px calc(100% - 240px) 60px 70px;
+        padding: 5px 5px;
+        button {
+            padding: 5px 5px;
+        }
+    }
+    @media screen and (min-width: 850px) {
+        padding: 5px 15%;
     }
 `
 

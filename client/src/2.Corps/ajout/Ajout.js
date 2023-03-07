@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useState } from "react";
 
 import Recu from "./comp/Recu";
@@ -5,6 +6,8 @@ import Recu from "./comp/Recu";
 const Ajout = () => {
 
     const [etape, setEtape] = useState(0);
+
+    const nouveauRecu = () => setEtape(0);
 
     return (
         <>
@@ -20,10 +23,15 @@ const Ajout = () => {
                 etape === 1 &&
                 <>
                     <p>Votre reçu a été ajouté.</p>
+                    <Nouveau onClick={nouveauRecu}>Nouveau reçu</Nouveau>
                 </>
             }
         </>
     )
 }
+
+const Nouveau = styled.button`
+    padding: 10px;
+`
 
 export default Ajout;

@@ -119,13 +119,14 @@ const Article = styled.div`
     align-items: center;
     display: grid;
     gap: 10px;
-    grid-template-columns: 30px calc(100% - 240px) 60px 90px;
-    justify-content: space-between;
+    grid-template-columns: 30px 300px 60px 90px;
+    justify-content: center;
     padding: 10px;
     p {
         margin: 0;
     }
-    @media screen and (max-width: 450px) {
+    @media screen and (max-width: 550px) {
+        font-size: small;
         grid-template-columns: 25px calc(100% - 150px) 55px 40px;
     }
 `
@@ -134,7 +135,7 @@ const BoutonEnl = styled.button`
     display: flex;
     justify-content: space-between;
     padding: 5px 10px;
-    @media screen and (max-width: 450px) {
+    @media screen and (max-width: 550px) {
         justify-content: center;
         span {
             display: none;
