@@ -45,6 +45,7 @@ const Comparatif = () => {
     const modifierMoyenne = (aliment) => {
         setModifierMoy(aliment);
         setAjoutArticle(false);
+        window.scrollTo({ left: 0, top: 100000, behavior: "smooth"});
     };
 
     const supprimerMoyenne = (aliment) => {

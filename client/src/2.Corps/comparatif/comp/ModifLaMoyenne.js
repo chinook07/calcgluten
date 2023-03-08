@@ -8,29 +8,37 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
     const { f5, setF5 } = useContext(ContexteGlut);
 
     const [prixEntre, setPrixEntre] = useState();
+    const [prixManquant, setPrixManquant] = useState(false);
 
     const maJPrix = (e) => {
         e.preventDefault();
-        fetch(`/api/modifier-moyenne`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({ aliment, prixEntre })
-        })
-            .then(res => res.json())
-            .then(() => {
-                setF5(f5 + 1)
-                setModifierMoy("");
+        if (prixEntre !== undefined && prixEntre !== "") {
+            fetch(`/api/modifier-moyenne`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ aliment, prixEntre })
             })
+                .then(res => res.json())
+                .then(() => {
+                    setF5(f5 + 1)
+                    setModifierMoy("");
+                })
+        } else {
+            setPrixManquant(true);
+        }
     }
 
     const touchePese = (f) => {
         if (f.key === "Enter") maJPrix(f);
     }
 
-    const editionPrix = (e) => setPrixEntre(e.target.value);
+    const editionPrix = (e) => {
+        setPrixEntre(e.target.value);
+        setPrixManquant(false);
+    };
 
     const fermerBoite = (e) => {
         e.preventDefault();
@@ -52,6 +60,10 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
                 />
                 <button type="submit">Mettre à jour</button>
             </Champs>
+            {
+                prixManquant &&
+                <TexteErr>Veuillez entrer un prix.</TexteErr>
+            }
         </form>
     )
 }
@@ -83,6 +95,10 @@ const Fermer = styled.button`
 
 const Gras = styled.span`
     font-weight: bold;
+`
+
+const TexteErr = styled.p`
+    color: red;
 `
 
 export default ModifLaMoyenne;
