@@ -97,7 +97,9 @@ const Details = ({ item }) => {
                 />
             }
             <BoutonAction onClick={ajouterItem}>
-                <span>Ajouter</span>
+                {
+                    ajoutItem ? <span>Fermer</span> : <span>Ajouter</span>
+                }
                 <FontAwesomeIcon icon={faPizzaSlice}/>
             </BoutonAction>
         </Wrapper>
@@ -123,6 +125,7 @@ const Article = styled.div`
     justify-content: center;
     padding: 10px;
     p {
+        color: var(--c11);
         margin: 0;
     }
     @media screen and (max-width: 550px) {

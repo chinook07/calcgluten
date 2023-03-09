@@ -47,15 +47,17 @@ const Derniers = () => {
 }
 
 const FacRecente = styled.div`
-    p,
-    time {
-        color: var(--c11);
-    }
     &:nth-child(odd) {
         background-color: var(--c2);
+        form fieldset > p {
+            color: pink;
+        }
     }
     &:nth-child(even) {
         background-color: var(--c3);
+        form fieldset > p {
+            color: #350000;
+        }
     }
 `
 
@@ -67,6 +69,10 @@ const Resume = styled.div`
     padding: 5px 15px;
     p {
         margin: 10px 0;
+    }
+    p,
+    time {
+        color: var(--c11);
     }
     button {
         padding: 5px 10px;

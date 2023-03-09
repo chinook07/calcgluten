@@ -11,14 +11,15 @@ const NouvelItem = ({ recu, setAjoutItem }) => {
     const [entreeQte, setEntreeQte] = useState(0);
     const [entreeItem, setEntreeItem] = useState("");
     const [entreePrix, setEntreePrix] = useState(0);
+    const [infoManquante, setInfoManquante] = useState(false);
     const [custom, setCustom] = useState(false);
 
     const majItems = (e) => {
+        setInfoManquante(false);
         e.target.id === "qteItem" && setEntreeQte(e.target.value);
         e.target.id === "customItem" && setEntreeItem(e.target.value);
         e.target.id === "prixItem" && setEntreePrix(e.target.value);
         if (e.target.id === "nomItem") {
-            console.log(e.target.value);
             if (e.target.value !== "Autre") {
                 setCustom(false);
                 setEntreeItem(e.target.value)
@@ -31,7 +32,7 @@ const NouvelItem = ({ recu, setAjoutItem }) => {
     const envoyerAjout = (e) => {
         e.preventDefault();
         if ((custom && !entreeItem) || entreePrix === 0 || entreeQte === 0) {
-            console.log("err");
+            setInfoManquante(true);
         } else {
             fetch(`/api/ajouter-item-achete`, {
                 method: "PUT",
@@ -136,6 +137,10 @@ const NouvelItem = ({ recu, setAjoutItem }) => {
                     <span>Sauvegarder</span>
                     <FontAwesomeIcon icon={faServer} />
                 </button>
+                {
+                    infoManquante &&
+                    <TexteErr>Information manquante</TexteErr>
+                }
             </fieldset>
         </Wrapper>
     )
@@ -199,6 +204,12 @@ const ObjetChiffres = styled.div`
             width: 100px;
         }
     }
+`
+
+const TexteErr = styled.p`
+    color: pink;
+    font-weight: bold;
+    text-align: center;
 `
 
 export default NouvelItem;
