@@ -28,11 +28,8 @@ const Accueil = () => {
 const AjoutRecu = styled.div`
     display: flex;
     justify-content: center;
-    a {
-        text-decoration: none;
-        &:hover {
-            color: var(--c2);
-        }
+    a:hover {
+        color: var(--c2);
     }
 `
 

@@ -14,10 +14,7 @@ const Ajout = () => {
             <h2>Entrée de données</h2>
             {
                 etape === 0 &&
-                <>
-                    <p>Nouveau reçu</p>
-                    <Recu setEtape={setEtape} />
-                </>
+                <Recu setEtape={setEtape} />
             }
             {
                 etape === 1 &&

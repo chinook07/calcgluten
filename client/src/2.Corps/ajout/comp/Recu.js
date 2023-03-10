@@ -150,21 +150,23 @@ const Recu = ({ setEtape }) => {
     return (
         <form onSubmit={ajoutRecu}>
             <Champs>
+                <legend>Nouveau reçu</legend>
                 <MagEtDate>
-                    <label>Magasin</label>
+                    <label htmlFor="magasin">Magasin</label>
                     <input
-                        type="text"
+                        id="magasin"
                         onChange={majMagasin}
                         onKeyUp={entreeMagasin}
+                        type="text"
                     />
                 </MagEtDate>
                 <BoutonAjout onClick={plusUn}>Ajouter item</BoutonAjout>
                 {
                     numItems > 0 &&
                     <Legende aria-hidden>
-                            <p>Quantité</p>
-                            <p>Item</p>
-                            <p>Prix par unité</p>
+                            <label htmlFor="qteItem">Quantité</label>
+                            <label htmlFor="nomItem">Item</label>
+                            <label htmlFor="prixItem">Prix par unité</label>
                     </Legende>
                 }
                 {
@@ -187,8 +189,9 @@ const Recu = ({ setEtape }) => {
                     <BoutonAjout onClick={plusUn}>Ajouter item</BoutonAjout>
                 }
                 <MagEtDate>
-                    <label>Date de l'achat</label>
+                    <label htmlFor="dateAchat">Date de l'achat</label>
                     <input
+                        id="dateAchat"
                         onChange={majDate}
                         type="date"
                     />
@@ -208,6 +211,8 @@ const Recu = ({ setEtape }) => {
 
 const Champs = styled.fieldset`
     border: 1px solid black;
+    box-shadow: 1px 1px 3px var(--c2);
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -233,6 +238,7 @@ const BoutonAjout = styled.button`
 const Legende = styled.div`
     display: flex;
     justify-content: space-evenly;
+    margin-top: 15px;
 `
 
 const BoutonEnv = styled.button`

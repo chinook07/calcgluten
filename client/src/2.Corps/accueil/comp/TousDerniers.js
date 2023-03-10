@@ -58,7 +58,7 @@ const FacRecente = styled.div`
         }
     }
     &:nth-child(odd) {
-        background-color: var(--c3);
+        background-color: var(--c0);
         form fieldset > p {
             color: #350000;
         }
