@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import SelectLettres from "./comp/SelectLettres";
+import TousArticles from "./comp/TousArticles";
 import ModifLaMoyenne from "./comp/ModifLaMoyenne";
 import AjoutArticle from "./comp/AjoutArticle";
 import { ContexteGlut } from "../../ContexteGlut";
-import { faPenToSquare, faDumpster } from "@fortawesome/free-solid-svg-icons";
 
 const Comparatif = () => {
 
     const { baseComp, f5, setF5 } = useContext(ContexteGlut);
 
+    const [montrerLettres, setMontrerLettres] = useState(["a", "b", "c", "d", "e", "f"]);
     const [modifierMoy, setModifierMoy] = useState("");
     const [ajoutArticle, setAjoutArticle] = useState(false);
     const [prixManquants, setPrixManquants] = useState(0);
@@ -42,6 +43,10 @@ const Comparatif = () => {
         catalogue.push(article);
     })
 
+    const changerLettres = (lettres) => {
+        setMontrerLettres(lettres);
+    }
+
     const modifierMoyenne = (aliment) => {
         setModifierMoy(aliment);
         setAjoutArticle(false);
@@ -72,34 +77,13 @@ const Comparatif = () => {
                 prixManquants > 0 &&
                 <p>Attention, il manque {prixManquants} prix.</p>
             }
-            <Toutes>
-                {
-                    catalogue.map((item, index) => {
-                        return (
-                            <li key={index}>
-                                <p>{item.aliment}</p>
-                                <p>{item.achete}</p>
-                                <Complet prix={item.prix}>{item.prixLocale} $</Complet>
-                                <button onClick={() => modifierMoyenne(item)}>
-                                    <span>Modifier</span>
-                                    <FontAwesomeIcon icon={faPenToSquare} />
-                                </button>
-                                {
-                                    item.achete === 0
-                                        ? <button onClick={() => supprimerMoyenne(item.aliment)}>
-                                            <span>Supprimer</span>
-                                            <FontAwesomeIcon icon={faDumpster} />
-                                        </button>
-                                        : <button disabled>
-                                            <span>Supprimer</span>
-                                            <FontAwesomeIcon icon={faDumpster} />
-                                        </button>
-                                }
-                            </li>
-                        )
-                    })
-                }
-            </Toutes>
+            <SelectLettres changerLettres={changerLettres} />
+            <TousArticles
+                catalogue={catalogue}
+                modifierMoyenne={modifierMoyenne}
+                montrerLettres={montrerLettres}
+                supprimerMoyenne={supprimerMoyenne}
+            />
             {
                 modifierMoy !== "" &&
                     <ModifLaMoyenne aliment={modifierMoy} setModifierMoy={setModifierMoy} />
@@ -112,45 +96,6 @@ const Comparatif = () => {
         </>
     )
 }
-
-const Toutes = styled.ul`
-    padding: 0;
-    li {
-        align-items: center;
-        display: grid;
-        grid-template-columns: 30% 25px 55px 100px 110px;
-        justify-content: space-between;
-        padding: 5px 10px;
-        &:nth-child(odd) {
-            background-color: var(--c3);
-        }
-        &:nth-child(even) {
-            background-color: var(--c4);
-        }
-        p {
-            margin: 10px 0;
-        }
-        button {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 10px;
-        }
-        @media screen and (max-width: 520px) {
-            grid-template-columns: 30% 25px 55px 40px 40px;
-            button {
-                justify-content: center;
-                span {
-                    display: none;
-                }
-            }
-        }
-    }
-`
-
-const Complet = styled.p`
-    color: ${props => props.prix === 0 && "red"};
-    font-weight: ${props => props.prix === 0 && "bold"};
-`
 
 const Ajouter = styled.button`
     background-color: var(--c4);

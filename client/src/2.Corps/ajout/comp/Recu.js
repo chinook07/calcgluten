@@ -157,6 +157,7 @@ const Recu = ({ setEtape }) => {
                         id="magasin"
                         onChange={majMagasin}
                         onKeyUp={entreeMagasin}
+                        placeholder="Profit-go"
                         type="text"
                     />
                 </MagEtDate>
@@ -167,6 +168,7 @@ const Recu = ({ setEtape }) => {
                             <label htmlFor="qteItem">Quantité</label>
                             <label htmlFor="nomItem">Item</label>
                             <label htmlFor="prixItem">Prix par unité</label>
+                            <span></span>
                     </Legende>
                 }
                 {
@@ -236,9 +238,14 @@ const BoutonAjout = styled.button`
 `
 
 const Legende = styled.div`
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 100px 200px 100px 20px;
+    justify-content: center;
     margin-top: 15px;
+    label {
+        text-align: center;
+    }
 `
 
 const BoutonEnv = styled.button`

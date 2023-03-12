@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faPencil, faClose } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moinsUn }) => {
 
@@ -22,6 +22,7 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
                 id="qteItem"
                 onChange={majItems}
                 ordre={ordre}
+                placeholder="2"
                 propriete="qte"
                 type="number"
             />
@@ -32,6 +33,7 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
                     id="nomItem"
                     onChange={majItems}
                     ordre={ordre}
+                    placeholder="aliment"
                     propriete="item"
                     type="text"
                 />
@@ -65,13 +67,14 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
                 min="0"
                 onChange={majItems}
                 ordre={ordre}
+                placeholder="12,34"
                 propriete="prix"
                 step="0.01"
                 type="number"
             />
             <p> $</p>
             <FontAwesomeIcon
-                icon={faClose}
+                icon={faTrashCan}
                 onClick={() => moinsUn(ordre)}
                 title="supprimer item"
             />
@@ -97,10 +100,21 @@ const Wrapper = styled.div`
     > svg {
         cursor: pointer;
     }
+    @media screen and (max-width: 550px) {
+        flex-direction: column;
+        gap: 0;
+        p {
+            margin: 5px 0;
+        }
+    }
 `
 
 const BoiteSugg = styled.div`
     position: relative;
+    width: 200px;
+    input {
+        width: 100%;
+    }
 `
 
 const ItemChoisi = styled.div`
