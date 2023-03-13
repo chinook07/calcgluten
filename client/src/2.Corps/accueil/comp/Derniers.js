@@ -6,8 +6,8 @@ import { ContexteGlut } from "../../../ContexteGlut";
 import Details from "./Details";
 import { fr } from "date-fns/locale";
 
-const Derniers = () => {
-
+const Derniers = ({ setSuppAAnnuler }) => {
+    
     const { tousRecus } = useContext(ContexteGlut);
 
     const [details, setDetails] = useState();
@@ -35,7 +35,7 @@ const Derniers = () => {
                                 </Resume>
                                 {
                                     details === index &&
-                                    <Details item={item} />
+                                    <Details item={item} setSuppAAnnuler={setSuppAAnnuler} />
                                 }
                             </FacRecente>
                         )

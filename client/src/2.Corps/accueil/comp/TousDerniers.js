@@ -6,7 +6,7 @@ import { ContexteGlut } from "../../../ContexteGlut";
 import Details from "./Details";
 import Filtres from "../../comp/Filtres";
 
-const TousDerniers = () => {
+const TousDerniers = ({ setSuppAAnnuler }) => {
 
     const { tousRecus } = useContext(ContexteGlut);
 
@@ -39,7 +39,7 @@ const TousDerniers = () => {
                                 </Resume>
                                 {
                                     details === index &&
-                                    <Details item={item} />
+                                    <Details item={item} setSuppAAnnuler={setSuppAAnnuler} />
                                 }
                             </FacRecente>
                         )

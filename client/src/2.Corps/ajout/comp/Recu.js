@@ -113,7 +113,6 @@ const Recu = ({ setEtape }) => {
                     })
                 )
                 .then(res => res.json())
-                // )
                 .then(() => setF5(f5 + 1))
                 .then(() => setEtape(1))
                 

@@ -6,12 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NouvelItem from "./NouvelItem";
 import { faDumpster, faBan, faPizzaSlice } from "@fortawesome/free-solid-svg-icons";
 
-const Details = ({ item }) => {
+const Details = ({ item, setSuppAAnnuler }) => {
 
     const { f5, setF5 } = useContext(ContexteGlut);
     const [ajoutItem, setAjoutItem] = useState(false);
+    
 
     const supprimerRecu = () => {
+        console.log(item);
+        setSuppAAnnuler(item);
         fetch(`/api/supprimer-recu`, {
             method: "DELETE",
             headers: {

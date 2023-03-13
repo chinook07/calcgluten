@@ -43,8 +43,14 @@ const Comparatif = () => {
         catalogue.push(article);
     })
 
-    const changerLettres = (lettres) => {
+    const identifiants = ["lettres1", "lettres2", "lettres3", "lettres4"]
+
+    const changerLettres = (lettres, identifiant) => {
         setMontrerLettres(lettres);
+        identifiants.forEach(bouton => {
+            document.getElementById(bouton).className = ""
+        });
+        document.getElementById(identifiant).className = "actif";
     }
 
     const modifierMoyenne = (aliment) => {
@@ -86,12 +92,12 @@ const Comparatif = () => {
             />
             {
                 modifierMoy !== "" &&
-                    <ModifLaMoyenne aliment={modifierMoy} setModifierMoy={setModifierMoy} />
+                <ModifLaMoyenne aliment={modifierMoy} setModifierMoy={setModifierMoy} />
             }
             <Ajouter onClick={basculeAjoutArticle}>Ajouter un article comparatif</Ajouter>
             {
                 ajoutArticle &&
-                    <AjoutArticle setAjoutArticle={setAjoutArticle} />
+                <AjoutArticle setAjoutArticle={setAjoutArticle} />
             }
         </>
     )
