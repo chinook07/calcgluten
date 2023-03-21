@@ -13,7 +13,6 @@ const Details = ({ item, setSuppAAnnuler }) => {
     
 
     const supprimerRecu = () => {
-        console.log(item);
         setSuppAAnnuler(item);
         fetch(`/api/supprimer-recu`, {
             method: "DELETE",

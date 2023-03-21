@@ -17,7 +17,6 @@ const Accueil = () => {
     }, [SuppAAnnuler])
 
     const annulSupp = () => {
-        console.log("annuler suppression de", SuppAAnnuler);
         let dejaAchete = [];
         let pasDejaAchete = [];
         SuppAAnnuler.items.forEach((item, index) => {
@@ -36,7 +35,6 @@ const Accueil = () => {
                 });
             }
         })
-        console.log(dejaAchete);
         fetch("/api/ajout-recu", {
             method: "POST",
             body: JSON.stringify({

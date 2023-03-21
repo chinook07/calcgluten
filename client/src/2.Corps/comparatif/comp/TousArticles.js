@@ -9,7 +9,7 @@ const TousArticles = ({ catalogue, modifierMoyenne, montrerLettres, supprimerMoy
 
     montrerLettres.forEach(lettre => {
         catalogue.forEach(entree => {
-            if (entree.aliment.startsWith(lettre)) {
+            if (entree.aliment.toLowerCase().startsWith(lettre)) {
                 resultatsFiltres.push(entree)
             }
         })

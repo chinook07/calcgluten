@@ -31,12 +31,10 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
         }
     }
 
-    const touchePese = (f) => {
-        if (f.key === "Enter") maJPrix(f);
-    }
+    const touchePese = (f) => { if (f.key === "Enter") maJPrix(f) }
 
     const editionPrix = (e) => {
-        setPrixEntre(e.target.value);
+        setPrixEntre((parseFloat(e.target.value)).toFixed(2));
         setPrixManquant(false);
     };
 
