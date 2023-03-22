@@ -1,15 +1,35 @@
 import styled from "styled-components";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
+import { ContexteGlut } from "../ContexteGlut";
+
 const Entete = () => {
+
+    const { connecte, setConnecte } = useContext(ContexteGlut);
+
+    const deconnecter = () => {
+        connecte ? setConnecte(false) : setConnecte(true);
+    }
+
     return (
         <Wrapper>
             <h1>CalcGluten</h1>
             <nav>
-                <NavLink to="/">Accueil</NavLink>
-                <NavLink to="/comparatif">Comparatif</NavLink>
-                <NavLink to="/ajout">Ajout</NavLink>
-                <NavLink to="/resume">Résumé</NavLink>
+                {
+                    connecte &&
+                    <>
+                        <NavLink to="/">Accueil</NavLink>
+                        <NavLink to="/comparatif">Comparatif</NavLink>
+                        <NavLink to="/ajout">Ajout</NavLink>
+                        <NavLink to="/resume">Résumé</NavLink>
+                        <Deconn onClick={deconnecter}>Quitter</Deconn>
+                    </>
+                }
+                {
+                    connecte === false &&
+                    <Deconn onClick={deconnecter}>Se connecter</Deconn>
+                }
             </nav>
         </Wrapper>
     )
@@ -28,7 +48,8 @@ const Wrapper = styled.header`
     nav {
         display: flex;
         gap: 10px;
-        a {
+        a,
+        button {
             border: 1px solid black;
             border-radius: 10px;
             color: var(--c11);
@@ -40,9 +61,18 @@ const Wrapper = styled.header`
             }
         }
     }
-    @media screen and (max-width: 580px) {
+    @media screen and (max-width: 660px) {
         height: 150px;
         flex-direction: column;
+    }
+`
+
+const Deconn = styled.button`
+    background: none;
+    font-family: "Trebuchet MS",Helvetica,sans-serif;
+    font-size: medium;
+    &:not(:disabled):hover {
+        background: none;
     }
 `
 

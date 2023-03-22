@@ -9,6 +9,7 @@ const ContexteGlutProvider = ({ children }) => {
     const [tousRecus, setTousRecus] = useState([]);
     const [baseComp, setBaseComp] = useState();
     const [f5, setF5] = useState(0);
+    const [connecte, setConnecte] = useState(true);
 
     useEffect(() => {
         fetch("/api/toutes-donnees")
@@ -39,6 +40,8 @@ const ContexteGlutProvider = ({ children }) => {
     return (
         <ContexteGlut.Provider
             value={{
+                connecte,
+                setConnecte,
                 prete,
                 tousRecus,
                 setTousRecus,

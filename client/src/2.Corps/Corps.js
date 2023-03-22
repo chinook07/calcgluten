@@ -6,16 +6,17 @@ import Accueil from "./accueil/Accueil";
 import Comparatif from "./comparatif/Comparatif";
 import Ajout from "./ajout/Ajout";
 import Resume from "./resume/Resume";
+import Auth from "./Auth";
 import { ContexteGlut } from "../ContexteGlut";
 
 const Corps = () => {
 
-    const { prete } = useContext(ContexteGlut);
+    const { prete, connecte } = useContext(ContexteGlut);
     
     return (
         <Wrapper>
             {
-                prete &&
+                prete && connecte &&
                     <Routes>
                         <Route path="/" element={< Accueil />} />
                         <Route path="/comparatif" element={< Comparatif />} />
@@ -24,7 +25,10 @@ const Corps = () => {
                         <Route path="*" element={< div>Erreur</div>} />
                 </Routes>
             }
-            
+            {
+                connecte === false &&
+                <Auth />
+            }
         </Wrapper>
     )
 }
