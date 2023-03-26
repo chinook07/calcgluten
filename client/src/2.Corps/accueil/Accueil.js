@@ -79,7 +79,7 @@ const Accueil = () => {
                 <h2>Tous les reçus</h2>
                 {
                     SuppAAnnuler !== "" &&
-                    <Annul onClick={annulSupp}>Annuler dernier reçu.</Annul>
+                    <Annul onClick={annulSupp}>Rétablir dernier reçu supprimé.</Annul>
                 }
                 
                 <TousDerniers setSuppAAnnuler={setSuppAAnnuler} />
@@ -97,6 +97,7 @@ const AjoutRecu = styled.div`
 `
 
 const Annul = styled.button`
+    padding: 5px 10px;
 `
 
 export default Accueil;
