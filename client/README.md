@@ -1,70 +1,33 @@
 # CalcGluten
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Les personnes atteintes par la maladie cœliaque ont la possibilité de déclarer les aliments sans gluten [aux impôts fédérales](https://www.canada.ca/fr/agence-revenu/services/formulaires-publications/publications/rc4065/frais-medicaux.html#toc12). Le calcul du montant est complexe à faire. Cet outil aide ces gens à faire le calcul sans se perdre dans un classeur Excel.
 
-## Available Scripts
+## Fonctionnalités
 
-In the project directory, you can run:
+### Page d'*accueil*
 
-### `npm start`
+- Visualiser les 5 derniers reçus.
+- Voir tous les reçus d'une année.
+- Ajouter ou supprimer des articles sur un reçu.
+- Supprimer un reçu au complet.
+- Annuler la suppression d'un reçu.
 
-Runs the app i n the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Page *Comparatif*
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Choisir le prix de base d'un aliment (avec gluten) pour la comparaison.
+- Voir rapidement combien coûterait un article avec gluten, une fois le prix mis à jour.
 
-### `npm test`
+### Page *Ajout*
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Ajouter un reçu avec des articles sans gluten.
+- Rechercher un article parmi ceux déjà ajoutés.
 
-### `npm run build`
+### Page *Résumé*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Consulter le tableau récapitulatif tel que suggéré par [Revenu Canada](https://www.canada.ca/fr/agence-revenu/services/formulaires-publications/publications/rc4065/frais-medicaux.html#toc12).
+- Avoir le montant total à déclarer aux impôts par année.
+- Recevoir une alerte s'il manque des prix de base à la page comparatif, car ceci affectera le montant total à déclarer.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Authentification
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Pour l'instant, l'authentification à plusieurs comptes n'est pas possible. J'ai commencé par créer l'outil à de fins personnelles, mais en temps en lieu, j'aimerais ajouter la possibilité de se créer un compte.
