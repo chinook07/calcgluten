@@ -1,6 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 
+const PORT = process.env.PORT || 8000
+
 const {
     toutesDonnees,
     ajoutRecu,
@@ -46,4 +48,4 @@ express()
             message: "Désolé, erreur🍞!"
         })
     })
-    .listen(8000, () => console.log(`Écoute active sur port 8000`));
+    .listen(PORT, () => console.log(`Écoute active sur port ${PORT}`));
