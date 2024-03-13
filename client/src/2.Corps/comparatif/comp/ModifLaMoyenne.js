@@ -10,6 +10,8 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
     const [prixEntre, setPrixEntre] = useState();
     const [prixManquant, setPrixManquant] = useState(false);
 
+    const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
+
     const maJPrix = (e) => {
         e.preventDefault();
         if (prixEntre !== undefined && prixEntre !== "") {

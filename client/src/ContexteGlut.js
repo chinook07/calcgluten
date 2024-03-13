@@ -11,8 +11,10 @@ const ContexteGlutProvider = ({ children }) => {
     const [f5, setF5] = useState(0);
     const [connecte, setConnecte] = useState(true);
 
+    const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
+
     useEffect(() => {
-        fetch("/api/toutes-donnees")
+        fetch(`${baseURL}/toutes-donnees`)
             .then(res => res.json())
             .then((donnees) => {
                 let tousRecusChrono = donnees.recus;

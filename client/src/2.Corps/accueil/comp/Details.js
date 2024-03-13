@@ -11,10 +11,11 @@ const Details = ({ item, setSuppAAnnuler }) => {
     const { f5, setF5 } = useContext(ContexteGlut);
     const [ajoutItem, setAjoutItem] = useState(false);
     
+    const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
 
     const supprimerRecu = () => {
         setSuppAAnnuler(item);
-        fetch(`/api/supprimer-recu`, {
+        fetch(`${baseURL}/supprimer-recu`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +24,7 @@ const Details = ({ item, setSuppAAnnuler }) => {
             body: JSON.stringify({ aDetruire: item })
         })
             .then(() => 
-                fetch("/api/reduire-inventaire-max", {
+                fetch(`${baseURL}/reduire-inventaire-max`, {
                     method: "PUT",
                     body: JSON.stringify({
                         aEnlever: item.items
@@ -38,7 +39,7 @@ const Details = ({ item, setSuppAAnnuler }) => {
     }
 
     const enleverItem = (article) => {
-        fetch(`/api/enlever-item-achete`, {
+        fetch(`${baseURL}/enlever-item-achete`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -50,7 +51,7 @@ const Details = ({ item, setSuppAAnnuler }) => {
             })
         })
             .then(() => 
-                fetch("/api/reduire-inventaire", {
+                fetch(`${baseURL}/reduire-inventaire`, {
                     method: "PUT",
                     body: JSON.stringify({
                         qte: parseInt(article.qte),

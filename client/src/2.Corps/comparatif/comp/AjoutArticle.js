@@ -10,6 +10,8 @@ const AjoutArticle = ({ setAjoutArticle }) => {
     const [alimentEntre, setAlimentEntre] = useState();
     const [prixEntre, setPrixEntre] = useState();
 
+    const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
+
     const editionAliment = (e) => setAlimentEntre(e.target.value);
     const editionPrix = (e) => setPrixEntre(e.target.value);
 

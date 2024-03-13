@@ -14,6 +14,8 @@ const NouvelItem = ({ recu, setAjoutItem }) => {
     const [infoManquante, setInfoManquante] = useState(false);
     const [custom, setCustom] = useState(false);
 
+    const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
+
     const majItems = (e) => {
         setInfoManquante(false);
         e.target.id === "qteItem" && setEntreeQte(e.target.value);
@@ -48,7 +50,7 @@ const NouvelItem = ({ recu, setAjoutItem }) => {
                 })
             })
                 .then(() =>
-                    fetch("/api/augmenter-inventaire", {
+                    fetch(`${baseURL}/augmenter-inventaire`, {
                         method: "PUT",
                         body: JSON.stringify({
                             qte: parseInt(entreeQte),

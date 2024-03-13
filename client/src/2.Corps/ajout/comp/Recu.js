@@ -16,6 +16,8 @@ const Recu = ({ setEtape }) => {
     const [dateRecu, setDateRecu] = useState("");
     const [erreur, setErreur] = useState(false);
 
+    const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
+
     const majMagasin = (e) => setMagasin(e.target.value);
     const majDate = (e) => setDateRecu(e.target.value);
     const majItems = (e, rg) => {
@@ -77,7 +79,7 @@ const Recu = ({ setEtape }) => {
             }
         })
         if (magasin !== "" && dateRecu !== "" && numItems > 0 && tousItems.length) {
-            fetch("/api/ajout-recu", {
+            fetch(`${baseURL}/ajout-recu`, {
                 method: "POST",
                 body: JSON.stringify({
                     magasin: magasin,
@@ -90,7 +92,7 @@ const Recu = ({ setEtape }) => {
                 },
             })
                 .then(() => 
-                    fetch("/api/nouvel-achat", {
+                    fetch(`${baseURL}/nouvel-achat`, {
                         method: "PUT",
                         body: JSON.stringify({
                             dejaAchete: dejaAchete
@@ -101,7 +103,7 @@ const Recu = ({ setEtape }) => {
                         },
                     }))
                 .then(() => 
-                    fetch("/api/nouvel-item", {
+                    fetch(`${baseURL}/nouvel-item`, {
                         method: "POST",
                         body: JSON.stringify({
                             pasDejaAchete: pasDejaAchete

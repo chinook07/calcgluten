@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 8000
 
@@ -25,6 +26,7 @@ const {
 
 express()
     .use(morgan("tiny"))
+    .use(cors())
     .use(express.json())
     .use(express.static("public"))
 

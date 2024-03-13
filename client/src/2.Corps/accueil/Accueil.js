@@ -16,6 +16,8 @@ const Accueil = () => {
         localStorage.setItem("annuler", JSON.stringify(SuppAAnnuler))
     }, [SuppAAnnuler])
 
+    const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
+
     const annulSupp = () => {
         let dejaAchete = [];
         let pasDejaAchete = [];
@@ -35,7 +37,7 @@ const Accueil = () => {
                 });
             }
         })
-        fetch("/api/ajout-recu", {
+        fetch(`${baseURL}/ajout-recu`, {
             method: "POST",
             body: JSON.stringify({
                 magasin: SuppAAnnuler.magasin,
@@ -49,7 +51,7 @@ const Accueil = () => {
         })
             .then(() => setSuppAAnnuler(""))
             .then(() => 
-                fetch("/api/nouvel-achat", {
+                fetch(`${baseURL}/nouvel-achat`, {
                     method: "PUT",
                     body: JSON.stringify({
                         dejaAchete: dejaAchete

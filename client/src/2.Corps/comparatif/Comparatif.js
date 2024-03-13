@@ -26,6 +26,8 @@ const Comparatif = () => {
         manquants && setPrixManquants(manquants);
     }, [baseComp])
 
+    const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
+
     let catalogue = [];
 
     baseComp.forEach(article => {
