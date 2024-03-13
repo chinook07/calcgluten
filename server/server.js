@@ -27,6 +27,7 @@ const {
 express()
     .use(morgan("tiny"))
     .use(cors())
+    .options("https://calcgluten.touristechezsoi.ca", cors())
     .use(express.json())
     .use(express.static("public"))
 
