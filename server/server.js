@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const PORT = process.env.PORT || 8000
 
 const {
+    testApi,
     toutesDonnees,
     ajoutRecu,
     supprimerRecu,
@@ -26,6 +27,8 @@ express()
     .use(morgan("tiny"))
     .use(express.json())
     .use(express.static("public"))
+
+    .get("/api/test", testApi)
 
     .get("/api/toutes-donnees", toutesDonnees)
     .post("/api/ajout-recu", ajoutRecu)
