@@ -25,14 +25,14 @@ const Tableau = ({ filtrer }) => {
                         paye.qte = parseInt(paye.qte) + parseInt(match.qte);
                         paye.total = parseFloat(paye.total) + parseFloat(match.prix) * match.qte;
                         paye.unitaire = paye.total / paye.qte;
-                        declarable += (paye.unitaire - parseFloat(element.prix)) * match.qte;
+                        element.prix === 0 ? declarable = 0 : declarable += (paye.unitaire - parseFloat(element.prix)) * match.qte;
                     }
                 }
             })
             element.qteAnnee = paye.qte
             element.prixSG = paye.unitaire;
             element.totalSG = paye.total;
-            element.admissible = declarable;
+            declarable < 0 ? element.admissible = 0 : element.admissible = declarable;
             if (!isNaN(element.admissible)) somme += element.admissible;
         });
         let sommeArr = somme.toFixed(2);

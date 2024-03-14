@@ -36,7 +36,7 @@ const NouvelItem = ({ recu, setAjoutItem }) => {
         if ((custom && !entreeItem) || entreePrix === 0 || entreeQte === 0) {
             setInfoManquante(true);
         } else {
-            fetch(`/api/ajouter-item-achete`, {
+            fetch(`${baseURL}/ajouter-item-achete`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const NouvelItem = ({ recu, setAjoutItem }) => {
                 .then(res => res.json())
                 .then(req => {
                     if (req.ajoute === false) {
-                        fetch(`/api/nouvelle-moyenne`, {
+                        fetch(`${baseURL}/nouvelle-moyenne`, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",

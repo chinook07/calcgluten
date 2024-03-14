@@ -15,7 +15,7 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
     const maJPrix = (e) => {
         e.preventDefault();
         if (prixEntre !== undefined && prixEntre !== "") {
-            fetch(`/api/modifier-moyenne`, {
+            fetch(`${baseURL}/modifier-moyenne`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

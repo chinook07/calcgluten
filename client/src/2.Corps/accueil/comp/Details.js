@@ -6,15 +6,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NouvelItem from "./NouvelItem";
 import { faDumpster, faBan, faPizzaSlice } from "@fortawesome/free-solid-svg-icons";
 
-const Details = ({ item, setSuppAAnnuler }) => {
+const Details = ({ item, setDetails, setSuppAAnnuler }) => {
 
     const { f5, setF5 } = useContext(ContexteGlut);
     const [ajoutItem, setAjoutItem] = useState(false);
+    const [voulezVousSupprimer, setVoulezVousSupprimer] = useState();
+    const [voulezVousEnlever, setVoulezVousEnlever] = useState();
+    const [indexEnlever, setIndexEnlever] = useState();
     
     const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
 
+    const validerSupp = (recu) => setVoulezVousSupprimer(recu);
+
+    const pasSupprimer = () => setVoulezVousSupprimer();
+
     const supprimerRecu = () => {
-        setSuppAAnnuler(item);
+        setSuppAAnnuler(voulezVousSupprimer);
         fetch(`${baseURL}/supprimer-recu`, {
             method: "DELETE",
             headers: {
@@ -35,10 +42,24 @@ const Details = ({ item, setSuppAAnnuler }) => {
                     },
         }))
             .then(res => res.json())
-            .then(() => setF5(f5 + 1))
+            .then(() => {
+                setF5(f5 + 1)
+                setVoulezVousSupprimer();
+                setDetails();
+            })
+    }
+    
+    const validerEnlever = (item, index) => {
+        setVoulezVousEnlever(item);
+        setIndexEnlever(index);
+    }
+    
+    const pasEnlever = () => {
+        setVoulezVousEnlever();
+        setIndexEnlever();
     }
 
-    const enleverItem = (article) => {
+    const enleverItem = () => {
         fetch(`${baseURL}/enlever-item-achete`, {
             method: "PUT",
             headers: {
@@ -47,15 +68,15 @@ const Details = ({ item, setSuppAAnnuler }) => {
             },
             body: JSON.stringify({
                 recuAModifier: item._id,
-                aEnlever: article
+                aEnlever: voulezVousEnlever
             })
         })
             .then(() => 
                 fetch(`${baseURL}/reduire-inventaire`, {
                     method: "PUT",
                     body: JSON.stringify({
-                        qte: parseInt(article.qte),
-                        item: article.item
+                        qte: parseInt(voulezVousEnlever.qte),
+                        item: voulezVousEnlever.item
                     }),
                     headers: {
                         "Content-Type": "application/json",
@@ -63,7 +84,11 @@ const Details = ({ item, setSuppAAnnuler }) => {
                     },
         }))
             .then(res => res.json())
-            .then(() => setF5(f5 + 1))
+            .then(() => {
+                setF5(f5 + 1)
+                setVoulezVousEnlever();
+                setIndexEnlever();
+            })
     }
 
     const ajouterItem = () => {
@@ -72,10 +97,23 @@ const Details = ({ item, setSuppAAnnuler }) => {
 
     return (
         <Wrapper>
-            <BoutonAction onClick={() => supprimerRecu(item)}>
-                <span>Supprimer</span>
-                <FontAwesomeIcon icon={faDumpster}/>
-            </BoutonAction>
+            {
+                voulezVousSupprimer === undefined &&
+                <BoutonAction onClick={() => validerSupp(item)}>
+                        <span>Supprimer</span>
+                        <FontAwesomeIcon icon={faDumpster}/>
+                </BoutonAction>
+            }
+            {
+                voulezVousSupprimer !== undefined &&
+                <Certain>
+                        <p>Attention! Êtes-vous certain(e) de vouloir supprimer cette facture?</p>
+                        <div>
+                            <button onClick={supprimerRecu}>Oui, supprimer</button>
+                            <button onClick={pasSupprimer}>Non, conserver</button>
+                        </div>
+                </Certain>
+            }
             {
                 item.items.map((article, index) => {
                     let prixVirg = ((parseFloat(article.prix)).toFixed(2)).replace(".", ",");
@@ -83,11 +121,26 @@ const Details = ({ item, setSuppAAnnuler }) => {
                         <Article key={index}>
                             <p>{article.qte} ×</p>
                             <p>{article.item}</p>
-                            <p>{prixVirg} $</p>
-                            <BoutonEnl onClick={() => enleverItem(article)}>
-                                <span>Enlever</span>
-                                <FontAwesomeIcon icon={faBan} />
-                            </BoutonEnl>
+                            
+                            {
+                                (voulezVousEnlever === undefined || indexEnlever !== index) &&
+                                <>
+                                    <p>{prixVirg} $</p>
+                                    <BoutonEnl onClick={() => validerEnlever(article, index)}>
+                                        <span>Enlever</span>
+                                        <FontAwesomeIcon icon={faBan} />
+                                    </BoutonEnl>
+                                </>
+                                
+                            }
+                            {
+                                indexEnlever === index &&
+                                <OuiNonEnl>
+                                        <p>Enlever item?</p>
+                                        <button onClick={enleverItem}>Oui</button>
+                                        <button onClick={pasEnlever}>Non</button>
+                                </OuiNonEnl>
+                            }
                         </Article>
                     )
                 })
@@ -118,6 +171,29 @@ const BoutonAction = styled.button`
     gap: 10px;
     margin: 0 auto;
     padding: 5px 10px;
+`
+
+const Certain = styled.div`
+    p {
+        color: white;
+        text-align: center;
+    }
+    div {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        button {
+            padding: 5px 10px;
+        }
+    }
+`
+
+const OuiNonEnl = styled.div`
+    display: flex;
+    gap: 5px;
+    button {
+        padding: 5px 10px;
+    }
 `
 
 const Article = styled.div`

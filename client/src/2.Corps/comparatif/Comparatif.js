@@ -19,7 +19,7 @@ const Comparatif = () => {
     useEffect(() => {
         let manquants = false;
         baseComp.forEach(item => {
-            if (item.prix === "0,00") {
+            if (item.prix === 0) {
                 manquants += 1;
             }
         })
@@ -31,12 +31,14 @@ const Comparatif = () => {
     let catalogue = [];
 
     baseComp.forEach(article => {
+        if (article.aliment === "test") console.log(article);
         let nombreArrondi = article.prix.toLocaleString("fr-CA");
         let virgule = nombreArrondi.indexOf(",");
+        let chiffresApVirgule;
         if (virgule === -1) {
             nombreArrondi = nombreArrondi.concat(",00");
         } else {
-            let chiffresApVirgule = nombreArrondi.length - virgule
+            chiffresApVirgule = nombreArrondi.length - virgule
             if (chiffresApVirgule === 2) {
                 nombreArrondi = nombreArrondi.concat("0");
             }
@@ -62,7 +64,7 @@ const Comparatif = () => {
     };
 
     const supprimerMoyenne = (aliment) => {
-        fetch(`/api/supprimer-moyenne`, {
+        fetch(`${baseURL}/supprimer-moyenne`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -81,6 +83,7 @@ const Comparatif = () => {
 
     return (
         <>
+            <p>Pour déclarer un montant total aux impôts, il faut d'abord calculer le prix que vous coûterait chaque aliment si vous n'étiez pas atteinte de la maladie de coéliaque. Au fur et à mesure que vous ajouteriez vos aliments sans gluten, il vous faudra indiquer le coût d'un item comparable. Oui, on sait... c'est compliqué!</p>
             {
                 prixManquants > 0 &&
                 <p>Attention, il manque {prixManquants} prix.</p>

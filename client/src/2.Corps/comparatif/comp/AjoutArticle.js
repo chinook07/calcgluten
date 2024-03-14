@@ -17,7 +17,7 @@ const AjoutArticle = ({ setAjoutArticle }) => {
 
     const envoyerAjout = (e) => {
         e.preventDefault();
-        fetch(`/api/nouvelle-moyenne`, {
+        fetch(`${baseURL}/nouvelle-moyenne`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

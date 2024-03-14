@@ -35,7 +35,7 @@ const Derniers = ({ setSuppAAnnuler }) => {
                                 </Resume>
                                 {
                                     details === index &&
-                                    <Details item={item} setSuppAAnnuler={setSuppAAnnuler} />
+                                    <Details item={item} setDetails={setDetails} setSuppAAnnuler={setSuppAAnnuler} />
                                 }
                             </FacRecente>
                         )

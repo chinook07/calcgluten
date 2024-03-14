@@ -53,11 +53,14 @@ const Wrapper = styled.header`
             border: 1px solid black;
             border-radius: 10px;
             color: var(--c11);
-            height: 40px;
             padding: 10px;
             text-decoration: none;
             &.active {
                 background-color: var(--c10);
+            }
+            @media screen and (max-width: 500px) {
+                font-size: 14px;
+                padding: 5px;
             }
         }
     }

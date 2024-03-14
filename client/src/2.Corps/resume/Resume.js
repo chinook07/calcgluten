@@ -16,8 +16,9 @@ const Resume = () => {
         let oublis = 0;
         let pasRentables = [];
         baseComp.forEach(element => {
+            console.log(element);
             if (element.prix === 0 || element.prix === "0,00") oublis += 1;
-            if (element.admissible < 0) pasRentables.push(element);
+            if (element.prixSG < element.prix) pasRentables.push(element);
         })
         setNonRentables(pasRentables);
         setManquants(oublis);
@@ -25,14 +26,13 @@ const Resume = () => {
     
     useEffect(() => {
         let aModif = [];
-        nonRentables.forEach((decision, index) => {
+        nonRentables.forEach((decision) => {
             tousRecus.forEach(recu => {
                 recu.items.forEach(achat => {
                     if (achat.item === decision.aliment) aModif.push(recu)
                 })
             })
         })
-        console.log(aModif);
         setRecusAModifier(aModif);
     }, [nonRentables])
 
@@ -42,20 +42,20 @@ const Resume = () => {
             <Filtres filtrer={filtrer} setFiltrer={setFiltrer} />
             {
                 manquants === 1 &&
-                <p>Attention, il y a un article sans prix de base. Votre montant admissible est plus bas que ce que vous verrez dans ce tableau.</p>
+                <p>Attention, il y a un article sans prix de base. Votre montant admissible pourrait être plus élevé.</p>
             }
             {
                 manquants > 1 &&
-                <p>Attention, il y a {manquants} articles sans prix de base. Votre montant admissible est plus bas que ce que vous verrez dans ce tableau.</p>
+                <p>Attention, il y a {manquants} articles sans prix de base. Votre montant admissible pourrait être plus élevé.</p>
             }
             {
                 nonRentables.length === 1 &&
-                <p>Attention, vous avez donné à l'article <em>{nonRentables[0].aliment}</em> un prix régulier supérieur au prix auquel vous l'avez acheté.</p>
+                <p>Attention, vous avez donné à l'article <em>{nonRentables[0].aliment}</em> un prix régulier supérieur au prix auquel vous l'avez acheté. Il ne sera pas pris en compte dans le calcul.</p>
             }
             {
                 nonRentables.length > 1 &&
                 <>
-                    <p>Attention, vous avez donné aux articles suivants des prix réguliers supérieur au prix auquels vous les avez achetés.</p>
+                    <p>Attention, vous avez donné aux articles suivants des prix réguliers supérieur au prix auquels vous les avez achetés. Ils ne seront pas pris en compte dans le calcul.</p>
                     <ul>
                         {
                             nonRentables.map((item, index) => {
