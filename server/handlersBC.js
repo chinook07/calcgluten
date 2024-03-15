@@ -10,20 +10,20 @@ const options = {
 const client = new MongoClient(MONGO_URI, options);
 const db = client.db();
 
-const openSesame = async () => {
+const ouvrirMongo = async () => {
     await client.connect();
-    console.log("connected!");
+    console.log("connecté!");
 }
 
-const closeSesame = async () => {
+const fermerMongo = async () => {
     await client.close();
-    console.log("disconnected!");
+    console.log("déconnecté!");
 }
 
 const nouvelItem = async (req, res) => {
     const { pasDejaAchete } = req.body;
     if (pasDejaAchete.length > 0) {
-        await openSesame();
+        await ouvrirMongo();
         for (const element of pasDejaAchete) {
             await db.collection("basecomp").insertOne({
                 aliment: element.aliment,
@@ -31,7 +31,7 @@ const nouvelItem = async (req, res) => {
                 achete: element.achete
             })
         }
-        await closeSesame();
+        await fermerMongo();
     }
     return res.status(200).json({ status: 200, message: "nouvel item" })
 }
@@ -39,7 +39,7 @@ const nouvelItem = async (req, res) => {
 const nouvelAchat = async (req, res) => {
     const { dejaAchete } = req.body;
     if (dejaAchete.length > 0) {
-        await openSesame();
+        await ouvrirMongo();
         for (const element of dejaAchete) {
             const target = await db.collection("basecomp").findOne({ _id: ObjectId(element.id) })
             const nouveauStock = target.achete + element.qtePlus;
@@ -47,73 +47,73 @@ const nouvelAchat = async (req, res) => {
                 { _id: ObjectId(element.id) }, { $set: { achete: nouveauStock } }
             );
         }
-        await closeSesame();
+        await fermerMongo();
     }
     return res.status(201).json({ status: 201, message: `nouvel achat` })
 }
 
 const augmenterInventaire = async (req, res) => {
     const { qte, item } = req.body;
-    await openSesame();
+    await ouvrirMongo();
     const target = await db.collection("basecomp").findOne({ aliment: item });
     if (target === null) {
-        await closeSesame();
+        await fermerMongo();
         return res.status(200).json({ status: 200, ajoute: false, message: "Inventaire pas mis à jour" })
     } else {
         const nouveauStock = target.achete + qte;
         await db.collection("basecomp").findOneAndUpdate({ aliment: item }, { $set: { achete: nouveauStock } });
-        await closeSesame();
+        await fermerMongo();
         return res.status(200).json({ status: 200, message: "Inventaire mis à jour" })
     }
 }
 
 const reduireInventaire = async (req, res) => {
     const { qte, item } = req.body;
-    await openSesame();
+    await ouvrirMongo();
     const target = await db.collection("basecomp").findOne({ aliment: item });
     const nouveauStock = target.achete - qte;
     await db.collection("basecomp").findOneAndUpdate({ aliment: item }, { $set: { achete: nouveauStock } })
-    await closeSesame;
+    await fermerMongo;
     return res.status(200).json({ status: 200, message: "Inventaire mis à jour" })
 }
 
 const reduireInventaireMax = async (req, res) => {
     const { aEnlever } = req.body;
-    await openSesame();
+    await ouvrirMongo();
     for (const element of aEnlever) {
         const target = await db.collection("basecomp").findOne({ aliment: element.item })
         const nouveauStock = target.achete - parseInt(element.qte);
         await db.collection("basecomp").findOneAndUpdate({ aliment: element.item }, { $set: { achete: parseFloat(nouveauStock) } })
     }
-    await closeSesame;
+    await fermerMongo;
     return res.status(200).json({ status: 200, message: "Inventaire mis à jour" })
 }
 
 const nouvMoyenne = async (req, res) => {
     const { alimentEntre, prixEntre, qteAchete } = req.body;
-    await openSesame();
+    await ouvrirMongo();
     await db.collection("basecomp").insertOne({
         aliment: alimentEntre,
         prix: parseFloat(prixEntre),
         achete: qteAchete
     })
-    await closeSesame();
+    await fermerMongo();
     return res.status(200).json({ status: 200, message: "Aliment ajouté" })
 }
 
 const modifMoyenne = async (req, res) => {
     const { aliment, prixEntre } = req.body;
-    await openSesame();
+    await ouvrirMongo();
     await db.collection("basecomp").updateOne({ aliment: aliment.aliment }, { $set:{ prix: parseFloat(prixEntre) } })
-    await closeSesame();
+    await fermerMongo();
     return res.status(200).json({ status: 200, message: "Moyenne mis à jour" })
 }
 
 const supprimerMoyenne = async (req, res) => {
     const { aliment } = req.body;
-    await openSesame();
+    await ouvrirMongo();
     await db.collection("basecomp").deleteOne({ aliment: aliment })
-    await closeSesame();
+    await fermerMongo();
     return res.status(200).json({ status: 200, message: "Aliment supprimé" })
 }
 

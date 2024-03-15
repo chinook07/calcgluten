@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Auth = () => {
     return (
-        <Wrapper>Authentification</Wrapper>
+        <Wrapper>Authentification à venir</Wrapper>
     )
 }
 

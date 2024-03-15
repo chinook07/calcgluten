@@ -92,6 +92,7 @@ const Details = ({ item, setDetails, setSuppAAnnuler }) => {
     }
 
     const ajouterItem = () => {
+        pasSupprimer();
         ajoutItem ? setAjoutItem(false) : setAjoutItem(true);
     }
 
@@ -121,7 +122,6 @@ const Details = ({ item, setDetails, setSuppAAnnuler }) => {
                         <Article key={index}>
                             <p>{article.qte} ×</p>
                             <p>{article.item}</p>
-                            
                             {
                                 (voulezVousEnlever === undefined || indexEnlever !== index) &&
                                 <>

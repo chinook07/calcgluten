@@ -19,7 +19,7 @@ const Ajout = () => {
             {
                 etape === 1 &&
                 <>
-                    <p>Votre reçu a été ajouté.</p>
+                    <p>Vos achats ont été ajoutés. N'oubliez pas de conserver une copie de votre reçu.</p>
                     <Nouveau onClick={nouveauRecu}>Nouveau reçu</Nouveau>
                 </>
             }

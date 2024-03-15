@@ -16,7 +16,6 @@ const Resume = () => {
         let oublis = 0;
         let pasRentables = [];
         baseComp.forEach(element => {
-            console.log(element);
             if (element.prix === 0 || element.prix === "0,00") oublis += 1;
             if (element.prixSG < element.prix) pasRentables.push(element);
         })

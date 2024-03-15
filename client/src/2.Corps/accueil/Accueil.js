@@ -71,7 +71,9 @@ const Accueil = () => {
         <>
             <p>Bienvenue sur CalcGluten, où vous pouvez calculez le montant admissible aux déductions d'impôts liés <ExternalLink href="https://www.canada.ca/fr/agence-revenu/services/formulaires-publications/publications/rc4065/frais-medicaux.html#toc12">à la maladie cœliaque</ExternalLink>.</p>
             <AjoutRecu>
-                <Link to="/ajout">Entrez des données</Link>
+                <button>
+                    <Link to="/ajout">Entrez des données</Link>
+                </button>
             </AjoutRecu>
             <section>
                 <h2>Derniers reçus</h2>
@@ -83,7 +85,6 @@ const Accueil = () => {
                     SuppAAnnuler !== "" &&
                     <Annul onClick={annulSupp}>Rétablir dernier reçu supprimé.</Annul>
                 }
-                
                 <TousDerniers setSuppAAnnuler={setSuppAAnnuler} />
             </section>
         </>
@@ -93,9 +94,13 @@ const Accueil = () => {
 const AjoutRecu = styled.div`
     display: flex;
     justify-content: center;
-    a:hover {
-        color: var(--c2);
+    button {
+        padding: 5px 10px;
+        a {
+            text-decoration: none;
+        }
     }
+    
 `
 
 const Annul = styled.button`

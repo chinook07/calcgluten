@@ -158,7 +158,7 @@ const Recu = ({ setEtape }) => {
                         id="magasin"
                         onChange={majMagasin}
                         onKeyUp={entreeMagasin}
-                        placeholder="Profit-go"
+                        placeholder="Nom du magasin"
                         type="text"
                     />
                 </MagEtDate>

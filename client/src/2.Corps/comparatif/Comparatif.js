@@ -31,7 +31,6 @@ const Comparatif = () => {
     let catalogue = [];
 
     baseComp.forEach(article => {
-        if (article.aliment === "test") console.log(article);
         let nombreArrondi = article.prix.toLocaleString("fr-CA");
         let virgule = nombreArrondi.indexOf(",");
         let chiffresApVirgule;

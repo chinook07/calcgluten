@@ -34,7 +34,7 @@ const TousArticles = ({ catalogue, modifierMoyenne, montrerLettres, supprimerMoy
                                         <span>Supprimer</span>
                                         <FontAwesomeIcon icon={faDumpster} />
                                     </button>
-                                    : <button disabled>
+                                    : <button disabled title="Impossible de supprimer un aliment que vous avez acheté.">
                                         <span>Supprimer</span>
                                         <FontAwesomeIcon icon={faDumpster} />
                                     </button>

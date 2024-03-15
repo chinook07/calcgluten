@@ -6,10 +6,10 @@ const PiedTab = ({ grandTotal }) => {
         <Wrapper>
             <tr>
                 <th>À déclarer</th>
-                <th aria-hidden></th>
-                <th aria-hidden></th>
-                <th aria-hidden></th>
-                <th aria-hidden></th>
+                <td aria-hidden></td>
+                <td aria-hidden></td>
+                <td aria-hidden></td>
+                <td aria-hidden></td>
                 <th>{grandTotal} $</th>
             </tr>
         </Wrapper>
