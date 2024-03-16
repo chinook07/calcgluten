@@ -7,6 +7,7 @@ import Comparatif from "./comparatif/Comparatif";
 import Ajout from "./ajout/Ajout";
 import Resume from "./resume/Resume";
 import Auth from "./Auth";
+import Chargement from "./comp/Chargement";
 import { ContexteGlut } from "../ContexteGlut";
 
 const Corps = () => {
@@ -15,6 +16,10 @@ const Corps = () => {
     
     return (
         <Wrapper>
+            {
+                prete === false &&
+                <Chargement />
+            }
             {
                 prete && connecte &&
                     <Routes>

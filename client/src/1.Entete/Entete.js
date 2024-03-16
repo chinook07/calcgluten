@@ -8,9 +8,7 @@ const Entete = () => {
 
     const { connecte, setConnecte } = useContext(ContexteGlut);
 
-    const deconnecter = () => {
-        connecte ? setConnecte(false) : setConnecte(true);
-    }
+    const deconnecter = () => setConnecte((prevState) => !prevState);
 
     return (
         <Wrapper>

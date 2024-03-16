@@ -63,7 +63,6 @@ const Accueil = () => {
                 }))
             .then(res => res.json())
             .then(() => setF5(f5 + 1))
-        
         // maj inventaire
     }
 
