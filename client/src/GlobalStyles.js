@@ -31,12 +31,18 @@ export default createGlobalStyle`
         border-radius: 10px;
     }
     :root {
-        --c0: #9e5f32;
+        /* --c0: #9e5f32;
         --c1: #e8d4b0;
         --c2: #674023;
         --c3: #9d7753;
         --c4: #ad9169;
-        --c5: #bda47d;
+        --c5: #bda47d; */
+        --c0: #400912;
+        --c1: #B9E3C6;
+        --c2: #23395B;
+        --c3: #9d7753;
+        --c4: #59C9A5;
+        --c5: #FFFD98;
         --c10: #000;
         --c11: #fff;
     }
