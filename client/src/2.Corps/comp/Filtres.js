@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import { ContexteGlut } from "../../ContexteGlut";
 import { getYear, parseISO } from 'date-fns'
 
-const Filtres = ({ filtrer, setFiltrer }) => {
+const Filtres = ({ filtrer, setFiltrer, setTrimestreChoisi }) => {
     
     const { tousRecus } = useContext(ContexteGlut);
 
@@ -22,6 +22,7 @@ const Filtres = ({ filtrer, setFiltrer }) => {
 
     const changerFiltre = (annee) => {
         filtrer === annee ? setFiltrer(undefined) : setFiltrer(annee);
+        setTrimestreChoisi(undefined);
     }
 
     return (

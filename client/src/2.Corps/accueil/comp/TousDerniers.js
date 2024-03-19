@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { useState, useContext } from "react";
-import { getYear, parseISO } from "date-fns";
+import { getYear, getQuarter, parseISO } from "date-fns";
 
 import { ContexteGlut } from "../../../ContexteGlut";
 import Details from "./Details";
 import Filtres from "../../comp/Filtres";
+import FiltresMois from "./FiltresMois";
 
 const TousDerniers = ({ setSuppAAnnuler }) => {
 
@@ -12,6 +13,14 @@ const TousDerniers = ({ setSuppAAnnuler }) => {
 
     const [details, setDetails] = useState();
     const [filtrer, setFiltrer] = useState();
+    const [trimestreChoisi, setTrimestreChoisi] = useState();
+
+    const lesTrimestres = [
+        {"trimestre": 1, "mois": "JAN–MAR"},
+        {"trimestre": 2, "mois": "AVR–JUN"},
+        {"trimestre": 3, "mois": "JUL–SEP"},
+        {"trimestre": 4, "mois": "OCT–DÉC"}
+    ]
     
     const basculerDetails = (num) => details === num ? setDetails() : setDetails(num);
 
@@ -20,7 +29,16 @@ const TousDerniers = ({ setSuppAAnnuler }) => {
             <Filtres
                 filtrer={filtrer}
                 setFiltrer={setFiltrer}
+                setTrimestreChoisi={setTrimestreChoisi}
             />
+            {
+                filtrer !== undefined &&
+                <FiltresMois
+                    lesTrimestres={lesTrimestres}
+                    trimestreChoisi={trimestreChoisi}
+                    setTrimestreChoisi={setTrimestreChoisi}
+                />
+            }
             {
                 tousRecus.map((item, index) => {
                     let sommeRecu = 0;
@@ -28,7 +46,7 @@ const TousDerniers = ({ setSuppAAnnuler }) => {
                         sommeRecu += e.prix * e.qte
                     })
                     let sommeVirg = ((parseFloat(sommeRecu)).toFixed(2)).replace(".", ",");
-                    if ((filtrer !== undefined && getYear(parseISO(item.date)) === filtrer) || filtrer === undefined) {
+                    if (((getYear(parseISO(item.date)) === filtrer) || filtrer === undefined) && ((getQuarter(parseISO(item.date)) === trimestreChoisi) || trimestreChoisi === undefined)) {
                         return (
                             <FacRecente key={index}>
                                 <Resume>
