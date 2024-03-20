@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faPenToSquare, faDumpster } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faDumpster, faClose } from "@fortawesome/free-solid-svg-icons";
 import ModifLaMoyenne from "./ModifLaMoyenne";
 
 const TousArticles = ({ aliment, catalogue, modifierMoyenne, modifierMoy, setModifierMoy, montrerLettres, supprimerMoyenne }) => {
@@ -16,6 +16,11 @@ const TousArticles = ({ aliment, catalogue, modifierMoyenne, modifierMoy, setMod
         })
     });
 
+    const fermerBoite = (e) => {
+        e.preventDefault();
+        setModifierMoy("");
+    }
+
     return (
         <Wrapper>
             {
@@ -26,10 +31,17 @@ const TousArticles = ({ aliment, catalogue, modifierMoyenne, modifierMoy, setMod
                                 <p>{item.aliment}</p>
                                 <p>{item.achete}</p>
                                 <Complet prix={item.prix}>{item.prixLocale} $</Complet>
-                                <button onClick={() => modifierMoyenne(item)}>
-                                    <span>Modifier</span>
-                                    <FontAwesomeIcon icon={faPenToSquare} />
-                                </button>
+                                {
+                                    modifierMoy !== "" && aliment._id === item._id
+                                        ? <button onClick={fermerBoite}>
+                                            <span>Fermer</span>
+                                            <FontAwesomeIcon icon={faClose} />
+                                        </button>
+                                        : <button onClick={() => modifierMoyenne(item)}>
+                                            <span>Modifier</span>
+                                            <FontAwesomeIcon icon={faPenToSquare} />
+                                        </button>
+                                }
                                 {
                                     item.achete === 0
                                         ? <button onClick={() => supprimerMoyenne(item.aliment)}>

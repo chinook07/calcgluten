@@ -42,18 +42,12 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
         setPrixManquant(false);
     };
 
-    const fermerBoite = (e) => {
-        e.preventDefault();
-        setModifierMoy("");
-    }
-
     const handleRenommer = () => {
         renommerArticle ? setRenommerArticle(false) : setRenommerArticle(true);
     }
 
     return (
         <Wrapper onSubmit={maJPrix}>
-            <Fermer onClick={fermerBoite}>Fermer</Fermer>
             <p>
                 <span>En moyenne, combien vous coûterait le prix de l'article </span>
                 <Gras>{aliment.aliment}</Gras>
@@ -107,16 +101,7 @@ const Champs = styled.fieldset`
     }
 `
 
-const Fermer = styled.button`
-    display: block;
-    margin: 0 0 0 auto;
-    padding: 5px 10px;
-    text-align: right;
-`
-
-const ChangerNom = styled.button`
-
-`
+const ChangerNom = styled.button``
 
 const Gras = styled.span`
     font-weight: bold;
