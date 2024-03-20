@@ -39,7 +39,7 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
                     type="text"
                 />
                 {
-                    montrerSugg === ordre.toString() && suggestions !== [] &&
+                    montrerSugg === ordre.toString() &&
                     <Suggestions>
                             {
                                 suggestions.map((item, index) => {

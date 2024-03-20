@@ -35,7 +35,7 @@ const Recu = ({ setEtape }) => {
             if (propriete === "item") {
                 let liste = [];
                 baseComp.forEach(element => {
-                    element.aliment.includes(valeurEntree) && liste.push(element.aliment)
+                    element.aliment.toLowerCase().includes(valeurEntree.toLowerCase()) && liste.push(element.aliment)
                 });
                 setSuggestions(liste)
                 setMontrerSugg(rang)
