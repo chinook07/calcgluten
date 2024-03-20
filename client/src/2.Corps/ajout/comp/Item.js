@@ -24,6 +24,7 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
                 ordre={ordre}
                 placeholder="2"
                 propriete="qte"
+                required
                 type="number"
             />
             <p>×</p>
@@ -69,6 +70,7 @@ const Item = ({ majItems, montrerSugg, ordre, suggestions, setSuggestions, moins
                 ordre={ordre}
                 placeholder="12,34"
                 propriete="prix"
+                required
                 step="0.01"
                 type="number"
             />
@@ -143,8 +145,10 @@ const ItemChoisi = styled.div`
 const Suggestions = styled.ul`
     background-color: var(--c2);
     border-radius: 0 0 5px 5px;
+    max-height: 200px;
     list-style-type: none;
     margin: 0;
+    overflow-y: scroll;
     padding-left: 0;
     position: absolute;
     width: 100%;

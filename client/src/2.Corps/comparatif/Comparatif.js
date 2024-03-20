@@ -59,7 +59,6 @@ const Comparatif = () => {
     const modifierMoyenne = (aliment) => {
         setModifierMoy(aliment);
         setAjoutArticle(false);
-        window.scrollTo({ left: 0, top: 100000, behavior: "smooth"});
     };
 
     const supprimerMoyenne = (aliment) => {
@@ -89,15 +88,13 @@ const Comparatif = () => {
             }
             <SelectLettres changerLettres={changerLettres} />
             <TousArticles
+                aliment={modifierMoy}
                 catalogue={catalogue}
                 modifierMoyenne={modifierMoyenne}
                 montrerLettres={montrerLettres}
+                setModifierMoy={setModifierMoy}
                 supprimerMoyenne={supprimerMoyenne}
             />
-            {
-                modifierMoy !== "" &&
-                <ModifLaMoyenne aliment={modifierMoy} setModifierMoy={setModifierMoy} />
-            }
             <Ajouter onClick={basculeAjoutArticle}>Ajouter un article comparatif</Ajouter>
             {
                 ajoutArticle &&

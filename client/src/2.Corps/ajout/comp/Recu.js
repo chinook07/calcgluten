@@ -1,3 +1,5 @@
+// travailler CSS mobile
+
 import styled from "styled-components";
 import { useState, useContext } from "react";
 
@@ -227,8 +229,9 @@ const Champs = styled.fieldset`
 const MagEtDate = styled.div`
     align-items: center;
     display: flex;
+    flex-direction: column;
     gap: 15px;
-    justify-content: center;
+    /* justify-content: center; */
 `
 
 const BoutonAjout = styled.button`
@@ -239,13 +242,17 @@ const BoutonAjout = styled.button`
 `
 
 const Legende = styled.div`
-    display: grid;
+    
     gap: 30px;
-    grid-template-columns: 100px 200px 100px 20px;
+    
     justify-content: center;
     margin-top: 15px;
     label {
         text-align: center;
+    }
+    @media screen and (min-width: 600px) {
+        display: grid;
+        grid-template-columns: 100px 200px 100px 20px;
     }
 `
 

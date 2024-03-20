@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faPenToSquare, faDumpster } from "@fortawesome/free-solid-svg-icons";
+import ModifLaMoyenne from "./ModifLaMoyenne";
 
-const TousArticles = ({ catalogue, modifierMoyenne, montrerLettres, supprimerMoyenne }) => {
+const TousArticles = ({ aliment, catalogue, modifierMoyenne, modifierMoy, setModifierMoy, montrerLettres, supprimerMoyenne }) => {
 
     let resultatsFiltres = [];
 
@@ -21,24 +22,32 @@ const TousArticles = ({ catalogue, modifierMoyenne, montrerLettres, supprimerMoy
                 resultatsFiltres.map((item, index) => {
                     return (
                         <li key={index}>
-                            <p>{item.aliment}</p>
-                            <p>{item.achete}</p>
-                            <Complet prix={item.prix}>{item.prixLocale} $</Complet>
-                            <button onClick={() => modifierMoyenne(item)}>
-                                <span>Modifier</span>
-                                <FontAwesomeIcon icon={faPenToSquare} />
-                            </button>
+                            <Infos>
+                                <p>{item.aliment}</p>
+                                <p>{item.achete}</p>
+                                <Complet prix={item.prix}>{item.prixLocale} $</Complet>
+                                <button onClick={() => modifierMoyenne(item)}>
+                                    <span>Modifier</span>
+                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                </button>
+                                {
+                                    item.achete === 0
+                                        ? <button onClick={() => supprimerMoyenne(item.aliment)}>
+                                            <span>Supprimer</span>
+                                            <FontAwesomeIcon icon={faDumpster} />
+                                        </button>
+                                        : <button disabled title="Impossible de supprimer un aliment que vous avez acheté.">
+                                            <span>Supprimer</span>
+                                            <FontAwesomeIcon icon={faDumpster} />
+                                        </button>
+                                }
+                            </Infos>
+                            
                             {
-                                item.achete === 0
-                                    ? <button onClick={() => supprimerMoyenne(item.aliment)}>
-                                        <span>Supprimer</span>
-                                        <FontAwesomeIcon icon={faDumpster} />
-                                    </button>
-                                    : <button disabled title="Impossible de supprimer un aliment que vous avez acheté.">
-                                        <span>Supprimer</span>
-                                        <FontAwesomeIcon icon={faDumpster} />
-                                    </button>
+                                modifierMoy !== "" && aliment._id === item._id &&
+                                <ModifLaMoyenne aliment={aliment} setModifierMoy={setModifierMoy} />
                             }
+                            
                         </li>
                     )
                 })
@@ -49,7 +58,11 @@ const TousArticles = ({ catalogue, modifierMoyenne, montrerLettres, supprimerMoy
 
 const Wrapper = styled.ul`
     padding: 0;
-    li {
+    
+`
+
+const Infos = styled.div`
+
         align-items: center;
         display: grid;
         grid-template-columns: 30% 25px 55px 100px 110px;
@@ -78,7 +91,6 @@ const Wrapper = styled.ul`
                 }
             }
         }
-    }
 `
 
 const Complet = styled.p`
