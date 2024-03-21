@@ -5,12 +5,12 @@ import { ContexteGlut } from "../../../ContexteGlut";
 
 const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
 
-
     const { f5, setF5 } = useContext(ContexteGlut);
 
     const [prixEntre, setPrixEntre] = useState();
     const [prixManquant, setPrixManquant] = useState(false);
     const [renommerArticle, setRenommerArticle] = useState(false);
+    const [nomEntre, setNomEntre] = useState("");
 
     const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
 
@@ -35,12 +35,39 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
         }
     }
 
+    const maJNom = (e) => {
+        e.preventDefault();
+        if (nomEntre !== "") {
+            console.log("nom changé pour", nomEntre);
+            
+            fetch(`${baseURL}/nouveau-nom`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ aliment, nomEntre })
+            })
+                .then((res) => res.json)
+                .then(() => {
+                    setRenommerArticle(false);
+                    setModifierMoy("");
+                    setF5(f5 + 1);
+                })
+
+        }
+    }
+
     const touchePese = (f) => { if (f.key === "Enter") maJPrix(f) }
 
     const editionPrix = (e) => {
         setPrixEntre((parseFloat(e.target.value)).toFixed(2));
         setPrixManquant(false);
     };
+
+    const editionNom = (e) => {
+        setNomEntre(e.target.value);
+    }
 
     const handleRenommer = () => {
         renommerArticle ? setRenommerArticle(false) : setRenommerArticle(true);
@@ -51,13 +78,22 @@ const ModifLaMoyenne = ({ aliment, setModifierMoy }) => {
             <p>
                 <span>En moyenne, combien vous coûterait le prix de l'article </span>
                 <Gras>{aliment.aliment}</Gras>
-                {/* <span> </span>
-                <ChangerNom onClick={handleRenommer}>renommer</ChangerNom>
+                <span> </span>
+                {/* {
+                    renommerArticle
+                        ? <ChangerNom onClick={handleRenommer} type="reset">Annuler</ChangerNom>
+                        : <ChangerNom onClick={handleRenommer}>Renommer</ChangerNom>
+                }
                 <span> </span>
                 {
-                    renommerArticle && <input />
+                    renommerArticle && <>
+                        <input onChange={editionNom} placeholder="nouveau nom" />
+                        <span> </span>
+                        <ChangerNom onClick={maJNom} type="submit">Sauvegarder</ChangerNom>
+                        <span> </span>
+                    </>
                 } */}
-                <span> si vous n'étiez pas atteint-e de la maladie de coéliaque?</span>
+                <span>si vous n'étiez pas atteint-e de la maladie de coéliaque?</span>
             </p>
             <Champs>
                 <label>Prix avant la « taxe sans gluten » :</label>

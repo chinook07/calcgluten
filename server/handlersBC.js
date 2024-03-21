@@ -109,6 +109,22 @@ const modifMoyenne = async (req, res) => {
     return res.status(200).json({ status: 200, message: "Moyenne mis à jour" })
 }
 
+const nouvNom = async (req, res) => {
+    // pas terminé
+    const { aliment, nomEntre } = req.body;
+    // console.log(aliment, nomEntre);
+    await ouvrirMongo();
+    await db.collection("basecomp").find({ aliment: aliment.aliment }, { $set: { aliment: nomEntre } })
+    // changer nom sur chaque reçu
+    await db.collection("recus").updateMany(
+        {"items.item": aliment.aliment}, { $set: { "items.$.item": nomEntre } }
+    )
+    // let resultat = await recherche.toArray();
+    // console.log(resultat);
+    await fermerMongo();
+    return res.status(200).json({ status: 200, message: "Nom mis à jour" })
+}
+
 const supprimerMoyenne = async (req, res) => {
     const { aliment } = req.body;
     await ouvrirMongo();
@@ -120,6 +136,7 @@ const supprimerMoyenne = async (req, res) => {
 module.exports = {
     nouvelAchat,
     nouvelItem,
+    nouvNom,
     nouvMoyenne,
     modifMoyenne,
     augmenterInventaire,

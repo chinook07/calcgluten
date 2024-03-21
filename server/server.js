@@ -15,6 +15,7 @@ const {
 
 const {
     nouvMoyenne,
+    nouvNom,
     modifMoyenne,
     nouvelAchat,
     nouvelItem,
@@ -40,6 +41,7 @@ express()
     .put("/api/enlever-item-achete", enleverItemAchete)
 
     .post("/api/nouvelle-moyenne", nouvMoyenne)
+    .put("/api/nouveau-nom", nouvNom)
     .put("/api/augmenter-inventaire", augmenterInventaire)
     .put("/api/reduire-inventaire", reduireInventaire)
     .put("/api/reduire-inventaire-max", reduireInventaireMax)
