@@ -35,6 +35,12 @@ const Resume = () => {
         setRecusAModifier(aModif);
     }, [nonRentables])
 
+    baseComp.forEach((item) => {
+        if (item._id === "66072e3d4c0dd804cf820f46") {
+            console.log(item, "item bière");
+        }
+    })
+
     return (
         <>
             <h2>Tableau résumé</h2>

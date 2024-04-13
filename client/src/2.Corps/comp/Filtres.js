@@ -22,7 +22,7 @@ const Filtres = ({ filtrer, setFiltrer, setTrimestreChoisi }) => {
 
     const changerFiltre = (annee) => {
         filtrer === annee ? setFiltrer(undefined) : setFiltrer(annee);
-        setTrimestreChoisi(undefined);
+        window.location.pathname === "/" && setTrimestreChoisi(undefined);
     }
 
     return (
@@ -55,6 +55,9 @@ const ChoixAnnee = styled.li`
     color: var(${props => props.filtrer === props.annee ? "--c11" : "--c10"});
     cursor: pointer;
     padding: 10px;
+    &:hover {
+        opacity: 0.8;
+    }
 `
 
 export default Filtres;

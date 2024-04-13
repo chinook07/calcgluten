@@ -16,6 +16,9 @@ const CorpsTab = ({ baseComp }) => {
                         let prixSGArr = item.prixSG.toFixed(2);
                         let prixSGVirgule = prixSGArr.replace(".", ",");
                         if (item.qteAnnee !== 0) {
+                            if (item.aliment === "bière Glutenberg") {
+                                console.log(item);
+                            }
                             return (
                                 <tr key={index}>
                                     <td>{item.aliment}</td>

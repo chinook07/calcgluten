@@ -74,35 +74,34 @@ const Wrapper = styled.ul`
 `
 
 const Infos = styled.div`
-
-        align-items: center;
-        display: grid;
-        grid-template-columns: 30% 25px 55px 100px 110px;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 30% 25px 55px 100px 110px;
+    justify-content: space-between;
+    padding: 5px 10px;
+    &:nth-child(odd) {
+        background-color: var(--c3);
+    }
+    &:nth-child(even) {
+        background-color: var(--c4);
+    }
+    p {
+        margin: 10px 0;
+    }
+    button {
+        display: flex;
         justify-content: space-between;
         padding: 5px 10px;
-        &:nth-child(odd) {
-            background-color: var(--c3);
-        }
-        &:nth-child(even) {
-            background-color: var(--c4);
-        }
-        p {
-            margin: 10px 0;
-        }
+    }
+    @media screen and (max-width: 520px) {
+        grid-template-columns: 30% 25px 55px 40px 40px;
         button {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 10px;
-        }
-        @media screen and (max-width: 520px) {
-            grid-template-columns: 30% 25px 55px 40px 40px;
-            button {
-                justify-content: center;
-                span {
-                    display: none;
-                }
+            justify-content: center;
+            span {
+                display: none;
             }
         }
+    }
 `
 
 const Complet = styled.p`

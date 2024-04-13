@@ -1,15 +1,17 @@
 // travailler CSS mobile
 
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { ContexteGlut } from "../../../ContexteGlut";
 import Item from "./Item";
 
 const Recu = ({ setEtape }) => {
 
-    const { baseComp, f5, setF5 } = useContext(ContexteGlut);
+    const { baseComp, tousRecus, f5, setF5 } = useContext(ContexteGlut);
 
+    const [tousMagasins, setTousMagasins] = useState([]);
+    const [suggestionsMag, setSuggestionsMag] = useState([]);
     const [numItems, setNumItems] = useState(0);
     const [magasin, setMagasin] = useState("");
     const [tousItems, setTousItems] = useState([]);
@@ -20,7 +22,18 @@ const Recu = ({ setEtape }) => {
 
     const baseURL = process.env.NODE_ENV === 'production' ? 'https://calcgluten.onrender.com/api' : 'http://localhost:8000/api';
 
-    const majMagasin = (e) => setMagasin(e.target.value);
+    const majMagasin = (e) => {
+        setMagasin(e.target.value)
+        if (e.target.value.length > 0) {
+            let listeMagSugg = [];
+            tousMagasins.forEach(mag => {
+                mag.toLowerCase().includes(e.target.value) && listeMagSugg.push(mag)
+            });
+            setSuggestionsMag(listeMagSugg);
+        } else {
+            setSuggestionsMag([])
+        }
+    };
     const majDate = (e) => setDateRecu(e.target.value);
     const majItems = (e, rg) => {
         if (e._reactName === "onChange") {
@@ -150,6 +163,16 @@ const Recu = ({ setEtape }) => {
         }
     }
 
+    useEffect(() => {
+        let listeMagasins = [];
+        tousRecus.forEach(recu => {
+            !listeMagasins.includes(recu.magasin) && listeMagasins.push(recu.magasin)
+        });
+        setTousMagasins(listeMagasins);
+    }, [])
+
+    
+
     return (
         <form onSubmit={ajoutRecu}>
             <Champs>
@@ -163,6 +186,18 @@ const Recu = ({ setEtape }) => {
                         placeholder="Nom du magasin"
                         type="text"
                     />
+                    {/* {
+                        suggestionsMag.length > 0 &&
+                        <Suggestions>
+                                {
+                                    suggestionsMag.map((item, index) => {
+                                        return (
+                                            <li key={index}>{item}</li>
+                                        )
+                                    })
+                                }
+                        </Suggestions>
+                    } */}
                 </MagEtDate>
                 <BoutonAjout onClick={plusUn}>Ajouter item</BoutonAjout>
                 {
@@ -231,7 +266,38 @@ const MagEtDate = styled.div`
     display: flex;
     flex-direction: column;
     gap: 15px;
+    position: relative;
     /* justify-content: center; */
+`
+
+const BoiteSugg = styled.div`
+    position: relative;
+    width: 200px;
+    input {
+        width: 100%;
+    }
+`
+
+const Suggestions = styled.ul`
+    background-color: var(--c2);
+    border-radius: 0 0 5px 5px;
+    max-height: 200px;
+    list-style-type: none;
+    margin: 0;
+    overflow-y: scroll;
+    padding-left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    li {
+        color: var(--c1);
+        cursor: pointer;
+        padding: 10px;
+        &:hover {
+            background-color: var(--c5);
+            color: var(--c2);
+        }
+    }
 `
 
 const BoutonAjout = styled.button`

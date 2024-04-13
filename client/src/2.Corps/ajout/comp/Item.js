@@ -145,6 +145,7 @@ const ItemChoisi = styled.div`
 const Suggestions = styled.ul`
     background-color: var(--c2);
     border-radius: 0 0 5px 5px;
+    bottom: 0;
     max-height: 200px;
     list-style-type: none;
     margin: 0;

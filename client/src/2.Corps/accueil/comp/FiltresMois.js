@@ -41,6 +41,9 @@ const Trimestre = styled.li`
     color: var(${props => props.trimestreChoisi === props.ceTrimestre ? "--c11" : "--c10"});
     cursor: pointer;
     padding: 10px;
+    &:hover {
+        opacity: 0.8;
+    }
 `
 
 export default FiltresMois;
