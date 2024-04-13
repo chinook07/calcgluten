@@ -2,10 +2,10 @@
 
     RewriteEngine On
     RewriteBase /
-    RewriteRule ^$ calcgluten.onrender.com:3000/ [P,L]
+    RewriteRule ^$ calcgluten-43v9.onrender.com/:3000/ [P,L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-l
-    RewriteRule ^(.*)$ calcgluten.onrender.com:3000/$1 [P,L]
+    RewriteRule ^(.*)$ calcgluten-43v9.onrender.com:3000/$1 [P,L]
 
 </IfModule>
